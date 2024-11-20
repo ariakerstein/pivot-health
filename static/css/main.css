@@ -1,0 +1,86 @@
+:root {
+    --pivot-green: #27ae60;
+    --pivot-light-green: #edf7f0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--pivot-green) !important;
+}
+
+.btn-success {
+    background-color: var(--pivot-green);
+    border-color: var(--pivot-green);
+}
+
+.btn-success:hover {
+    background-color: #219a52;
+    border-color: #219a52;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.onboarding-tasks .list-group-item {
+    border: none;
+    background-color: var(--pivot-light-green);
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+}
+
+.recommendations .card {
+    background-color: var(--pivot-light-green);
+    transition: transform 0.2s;
+}
+
+.recommendations .card:hover {
+    transform: translateY(-2px);
+}
+
+.health-content .card {
+    height: 100%;
+}
+
+.feather {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: text-bottom;
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+/* Custom styles for forms */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 0.75rem;
+}
+
+.form-control:focus {
+    border-color: var(--pivot-green);
+    box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+}

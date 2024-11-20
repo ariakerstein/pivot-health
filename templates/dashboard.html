@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Welcome back, {{ current_user.username }}</h1>
+    <p class="text-muted">Your personalized health dashboard</p>
+</div>
+
+<div class="onboarding-tasks mb-5">
+    <h2>Let's get you onboarded</h2>
+    <div class="list-group">
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i data-feather="upload"></i>
+                Upload your medical records
+            </div>
+            <button class="btn btn-outline-primary">Upload</button>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i data-feather="users"></i>
+                Join the Community
+            </div>
+            <button class="btn btn-outline-primary">Join Now</button>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i data-feather="file-text"></i>
+                Complete your medical intake
+            </div>
+            <button class="btn btn-outline-primary">Start</button>
+        </div>
+    </div>
+</div>
+
+<div class="recommendations mb-5">
+    <h2>Your Pivot Copilot recommends</h2>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i data-feather="calendar"></i>
+                        Schedule Annual Check-up
+                    </h5>
+                    <p class="card-text">Based on your age and health profile, it's time for your annual physical examination.</p>
+                    <button class="btn btn-primary">Schedule Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i data-feather="smartphone"></i>
+                        Home Monitoring Devices
+                    </h5>
+                    <p class="card-text">Explore the latest in home health monitoring technology to track your vital signs.</p>
+                    <button class="btn btn-primary">View Devices</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="health-content mb-5">
+    <h2>Personalized Health Recommendations</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card bg-gradient">
+                <div class="card-body">
+                    <h5 class="card-title">Recommended Articles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Understanding Your Blood Pressure Results</a></li>
+                        <li><a href="#">The Importance of Regular Check-ups</a></li>
+                        <li><a href="#">Nutrition Tips for a Healthy Heart</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-gradient">
+                <div class="card-body">
+                    <h5 class="card-title">New Diagnostics for You</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Advanced Genetic Screening</a></li>
+                        <li><a href="#">AI-Powered Skin Cancer Detection</a></li>
+                        <li><a href="#">Non-Invasive Cardiovascular Assessment</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-gradient">
+                <div class="card-body">
+                    <h5 class="card-title">Find a Provider</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Primary Care Physicians</a></li>
+                        <li><a href="#">Specialists in Your Area</a></li>
+                        <li><a href="#">Telemedicine Options</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
