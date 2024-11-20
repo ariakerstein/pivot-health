@@ -1,11 +1,34 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from health_screening import schedule_health_screening, get_available_slots
 import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
+
+# Configure SQLAlchemy with SSL and connection retries
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
+if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://', 1)
+
+# Enhanced database configuration with SSL and retry settings
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'connect_args': {
+        'sslmode': 'require',
+        'sslcert': None,
+        'sslkey': None,
+        'sslrootcert': None,
+        'connect_timeout': 10
+    },
+    'pool_pre_ping': True,
+    'pool_recycle': 300,
+    'pool_timeout': 30,
+    'pool_size': 10,
+    'max_overflow': 20,
+    'echo': True
+}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -71,22 +94,53 @@ def health_screening():
     """Route to show available health screening options and handle appointments"""
     form = ScreeningAppointmentForm()
     if form.validate_on_submit():
-        # Create appointment record
-        flash(f'Your {form.screening_type.data} screening has been scheduled for {form.preferred_date.data} during {form.preferred_time.data}.')
-        return redirect(url_for('dashboard'))
+        try:
+            screening = HealthScreening(
+                user_id=current_user.id,
+                screening_type=form.screening_type.data,
+                preferred_date=form.preferred_date.data,
+                preferred_time=form.preferred_time.data,
+                notes=form.notes.data,
+                status='scheduled'
+            )
+            db.session.add(screening)
+            db.session.commit()
+            
+            # Send confirmation email (can be implemented later)
+            flash(f'Your {form.screening_type.data} screening has been scheduled for {form.preferred_date.data} at {form.preferred_time.data}.')
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while scheduling your appointment. Please try again.', 'error')
+            app.logger.error(f'Error scheduling screening: {str(e)}')
     
-    # Get screening type from query params
     screening_type = request.args.get('type', 'general')
-    return render_template('health_screening.html', form=form, active_screening=screening_type)
+    available_slots = get_available_slots(screening_type, form.preferred_date.data if form.preferred_date.data else None)
+    return render_template('health_screening.html', form=form, active_screening=screening_type, available_slots=available_slots)
 
 @app.route('/health/schedule/<screening_type>', methods=['GET', 'POST'])
 @login_required
 def schedule_screening(screening_type):
     """Route to schedule specific screening appointments"""
-    form = ScreeningAppointmentForm()
+    form = ScreeningAppointmentForm(screening_type=screening_type)
     if form.validate_on_submit():
-        flash(f'Your {screening_type} screening has been scheduled successfully.')
-        return redirect(url_for('dashboard'))
+        try:
+            screening = HealthScreening(
+                user_id=current_user.id,
+                screening_type=screening_type,
+                preferred_date=form.preferred_date.data,
+                preferred_time=form.preferred_time.data,
+                notes=form.notes.data,
+                status='scheduled'
+            )
+            db.session.add(screening)
+            db.session.commit()
+            flash(f'Your {screening_type} screening has been scheduled successfully.')
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while scheduling your appointment. Please try again.', 'error')
+            app.logger.error(f'Error scheduling screening: {str(e)}')
     return render_template('schedule_screening.html', form=form, screening_type=screening_type)
 
 with app.app_context():

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center py-5">
+        <h1 class="display-4 mb-4">Pivot Health: Your Medical Co-pilot</h1>
+        <p class="lead mb-4">Discover and manage high-quality health services with personalized recommendations.</p>
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <a href="{{ url_for('signup') }}" class="btn btn-success btn-lg px-4 gap-3">Start Onboarding</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg px-4">Sign In</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

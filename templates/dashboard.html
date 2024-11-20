@@ -76,15 +76,15 @@
                         <div class="icon-circle">
                             <i data-feather="heart"></i>
                         </div>
-                        <h5 class="card-title mb-0 ms-3">Schedule Mental Health Consultation</h5>
+                        <h5 class="card-title mb-0 ms-3">Mental Health Assessment</h5>
                     </div>
-                    <p class="card-text">Connect with licensed mental health professionals for comprehensive evaluation and support.</p>
-                    <a href="#" class="btn btn-outline-primary">Schedule Appointment</a>
+                    <p class="card-text">Schedule a comprehensive mental health evaluation with our healthcare professionals.</p>
+                    <a href="{{ url_for('health_screening') }}?type=mental" class="btn btn-outline-primary">Schedule Now</a>
                 </div>
             </div>
         </div>
         
-        <!-- Dermatology Appointment Card -->
+        <!-- Dermatology Consultation Card -->
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-body">
@@ -92,10 +92,10 @@
                         <div class="icon-circle">
                             <i data-feather="user"></i>
                         </div>
-                        <h5 class="card-title mb-0 ms-3">Book a Dermatology Appointment</h5>
+                        <h5 class="card-title mb-0 ms-3">Dermatology Consultation</h5>
                     </div>
-                    <p class="card-text">Schedule a consultation with a certified dermatologist for professional skin care advice.</p>
-                    <a href="#" class="btn btn-outline-primary">Book Appointment</a>
+                    <p class="card-text">Book an in-person consultation with our certified dermatologists for professional skin care.</p>
+                    <a href="{{ url_for('health_screening') }}?type=dermatology" class="btn btn-outline-primary">Schedule Now</a>
                 </div>
             </div>
         </div>

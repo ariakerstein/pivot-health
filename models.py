@@ -34,3 +34,14 @@ class HealthProfile(db.Model):
     weight = db.Column(db.Float)
     medical_conditions = db.Column(db.Text)
     last_checkup = db.Column(db.DateTime)
+
+class HealthScreening(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    screening_type = db.Column(db.String(50), nullable=False)
+    preferred_date = db.Column(db.Date, nullable=False)
+    preferred_time = db.Column(db.String(20), nullable=False)
+    notes = db.Column(db.Text)
+    status = db.Column(db.String(20), default='scheduled')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user = db.relationship('User', backref=db.backref('screenings', lazy=True))
