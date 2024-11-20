@@ -77,5 +77,36 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+# Marketplace Routes
+@app.route('/recently-viewed')
+@login_required
+def recently_viewed():
+    return render_template('marketplace/recently_viewed.html')
+
+@app.route('/diagnostic-services')
+@login_required
+def diagnostic_services():
+    return render_template('marketplace/diagnostic_services.html')
+
+@app.route('/patient-support')
+@login_required
+def patient_support():
+    return render_template('marketplace/patient_support.html')
+
+@app.route('/medical-equipment')
+@login_required
+def medical_equipment():
+    return render_template('marketplace/medical_equipment.html')
+
+@app.route('/caregiver-resources')
+@login_required
+def caregiver_resources():
+    return render_template('marketplace/caregiver_resources.html')
+
+@app.route('/health-articles')
+@login_required
+def health_articles():
+    return render_template('marketplace/health_articles.html')
+
 with app.app_context():
     db.create_all()

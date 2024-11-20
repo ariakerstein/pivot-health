@@ -252,6 +252,69 @@ body {
     height: 100%;
 }
 
+/* Marketplace Sections Styles */
+.horizontal-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding: 0.5rem 0;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+.see-all-link {
+    color: var(--primary-black);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.see-all-link:hover {
+    color: var(--pivot-green);
+}
+
+.see-all-link i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.see-all-link:hover i {
+    transform: translateX(4px);
+}
+
+.card {
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.card:hover .icon-circle {
+    background: var(--pivot-green);
+    color: white;
+}
+
 .feather {
     width: 18px;
     height: 18px;
@@ -264,6 +327,40 @@ body {
     border: none;
 }
 
+/* Typography */
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.card-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Buttons */
+.btn-outline-primary {
+    border-color: #dee2e6;
+    color: var(--primary-black);
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--pivot-green);
+    border-color: var(--pivot-green);
+    color: white;
+}
+
 /* Custom styles for forms */
 .form-control {
     border-radius: 8px;
@@ -274,4 +371,28 @@ body {
 .form-control:focus {
     border-color: var(--pivot-green);
     box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.25rem;
+    }
+    
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .card-text {
+        font-size: 0.85rem;
+    }
+    
+    .icon-circle {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .horizontal-scroll .card {
+        min-width: 280px;
+    }
 }
