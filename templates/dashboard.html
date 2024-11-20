@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="dashboard-header mb-5">
+<div class="dashboard-header">
     <h1>Welcome back, {{ current_user.username }}</h1>
     <p class="text-muted">Your personalized health dashboard</p>
 </div>
 
-<!-- Onboarding Section -->
 <div class="onboarding-tasks mb-5">
     <h2>Let's get you onboarded</h2>
     <div class="list-group">
@@ -34,13 +33,12 @@
     </div>
 </div>
 
-<!-- Pivot Copilot Recommendations -->
-<section class="recommendations mb-5">
-    <h2 class="mb-4">Your Pivot Copilot recommends</h2>
+<div class="recommendations mb-5">
+    <h2>Your Pivot Copilot recommends</h2>
     <div class="row g-4">
         <!-- Annual Check-up Card -->
         <div class="col-md-6">
-            <div class="card h-100 bg-light">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
@@ -56,7 +54,7 @@
         
         <!-- Home Monitoring Devices Card -->
         <div class="col-md-6">
-            <div class="card h-100 bg-light">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
@@ -70,407 +68,79 @@
             </div>
         </div>
         
-        <!-- Exercise Tracking Card -->
+        <!-- ADHD Screening Card -->
         <div class="col-md-6">
-            <div class="card h-100 bg-light">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
                             <i data-feather="activity"></i>
                         </div>
-                        <h5 class="card-title mb-0 ms-3">Track Your Exercise Goals</h5>
+                        <h5 class="card-title mb-0 ms-3">Take an ADHD Screening Test</h5>
                     </div>
-                    <p class="card-text">Set and monitor your daily physical activity goals for better health.</p>
-                    <button class="btn btn-outline-primary">Start Tracking</button>
+                    <p class="card-text">Assess your focus and attention with our online ADHD screening tool.</p>
+                    <button class="btn btn-outline-primary">Start Screening</button>
                 </div>
             </div>
         </div>
         
-        <!-- Nutrition Planning Card -->
+        <!-- AI Skin Screen Card -->
         <div class="col-md-6">
-            <div class="card h-100 bg-light">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
-                            <i data-feather="heart"></i>
+                            <i data-feather="camera"></i>
                         </div>
-                        <h5 class="card-title mb-0 ms-3">Personalized Nutrition Plan</h5>
+                        <h5 class="card-title mb-0 ms-3">Take a One-Minute AI Skin Screen</h5>
                     </div>
-                    <p class="card-text">Get customized nutrition recommendations based on your health profile.</p>
-                    <button class="btn btn-outline-primary">View Plan</button>
+                    <p class="card-text">Quickly assess your skin health with our AI-powered screening tool. Time to smile!</p>
+                    <button class="btn btn-outline-primary">Start Screening</button>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<!-- Recently Viewed Section -->
-<section class="section-recently-viewed mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Recently Viewed</h2>
-        <a href="{{ url_for('recently_viewed') }}" class="text-decoration-none see-all-link">
-            See all <i data-feather="chevron-right"></i>
-        </a>
-    </div>
-    <div class="horizontal-scroll">
-        <div class="row flex-nowrap g-3">
-            {% for item in recently_viewed_items %}
-            <div class="col-10 col-md-4 col-lg-3">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="icon-circle">
-                                <i data-feather="file-text"></i>
-                            </div>
-                            <h5 class="card-title mb-0 ms-3">{{ item.title }}</h5>
-                        </div>
-                        <p class="card-text">{{ item.description }}</p>
-                        <a href="{{ item.link }}" class="btn btn-outline-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Diagnostic Services Section -->
-<section class="section-diagnostic-services mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Diagnostic Services</h2>
-        <a href="{{ url_for('diagnostic_services') }}" class="text-decoration-none see-all-link">
-            See all <i data-feather="chevron-right"></i>
-        </a>
-    </div>
+<div class="health-content mb-5">
+    <h2>Personalized Health Recommendations</h2>
     <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card h-100">
+        <div class="col-md-4">
+            <div class="card bg-gradient">
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="activity"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Blood Work Panel</h5>
-                    </div>
-                    <p class="card-text">Comprehensive blood analysis</p>
-                    <a href="#" class="btn btn-outline-primary">Learn More</a>
+                    <h5 class="card-title">Recommended Articles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Understanding Your Blood Pressure Results</a></li>
+                        <li><a href="#">The Importance of Regular Check-ups</a></li>
+                        <li><a href="#">Nutrition Tips for a Healthy Heart</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card h-100">
+        <div class="col-md-4">
+            <div class="card bg-gradient">
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="radio"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">MRI Scanning</h5>
-                    </div>
-                    <p class="card-text">Full-body or targeted MRI services</p>
-                    <a href="#" class="btn btn-outline-primary">Schedule</a>
+                    <h5 class="card-title">New Diagnostics for You</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Advanced Genetic Screening</a></li>
+                        <li><a href="#">AI-Powered Skin Cancer Detection</a></li>
+                        <li><a href="#">Non-Invasive Cardiovascular Assessment</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card h-100">
+        <div class="col-md-4">
+            <div class="card bg-gradient">
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="activity"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">X-Ray Imaging</h5>
-                    </div>
-                    <p class="card-text">Quick and efficient X-ray services</p>
-                    <a href="#" class="btn btn-outline-primary">Book Now</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="layers"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">CT Scan Services</h5>
-                    </div>
-                    <p class="card-text">Detailed internal imaging</p>
-                    <a href="#" class="btn btn-outline-primary">Learn More</a>
+                    <h5 class="card-title">Find a Provider</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Primary Care Physicians</a></li>
+                        <li><a href="#">Specialists in Your Area</a></li>
+                        <li><a href="#">Telemedicine Options</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-<!-- Patient Support Section -->
-<section class="section-patient-support mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Patient Support</h2>
-        <a href="{{ url_for('patient_support') }}" class="text-decoration-none see-all-link">
-            See all <i data-feather="chevron-right"></i>
-        </a>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="map"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Hospital Navigation App</h5>
-                    </div>
-                    <p class="card-text">Interactive hospital mapping</p>
-                    <a href="#" class="btn btn-outline-primary">Download</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="file-text"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Insurance Claim Assistant</h5>
-                    </div>
-                    <p class="card-text">Streamline your claim process</p>
-                    <a href="#" class="btn btn-outline-primary">Start</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="search"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Specialist Finder</h5>
-                    </div>
-                    <p class="card-text">Locate the right specialist for you</p>
-                    <a href="#" class="btn btn-outline-primary">Search</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="alert-circle"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Emergency Care Locator</h5>
-                    </div>
-                    <p class="card-text">Find nearest emergency services</p>
-                    <a href="#" class="btn btn-outline-primary">Locate</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Medical Equipment Section -->
-<section class="section-medical-equipment mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Medical Equipment</h2>
-        <a href="{{ url_for('medical_equipment') }}" class="text-decoration-none see-all-link">
-            See all <i data-feather="chevron-right"></i>
-        </a>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="life-buoy"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Wheelchair Selection Guide</h5>
-                    </div>
-                    <p class="card-text">Find the right mobility solution</p>
-                    <a href="#" class="btn btn-outline-primary">Browse</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="home"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Home Medical Devices</h5>
-                    </div>
-                    <p class="card-text">Essential equipment for home care</p>
-                    <a href="#" class="btn btn-outline-primary">Shop</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="navigation"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Mobility Aids Showcase</h5>
-                    </div>
-                    <p class="card-text">Explore various mobility options</p>
-                    <a href="#" class="btn btn-outline-primary">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="box"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Equipment Rental Services</h5>
-                    </div>
-                    <p class="card-text">Short-term medical equipment rental</p>
-                    <a href="#" class="btn btn-outline-primary">Rent Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Caregiver Resources Section -->
-<section class="section-caregiver-resources mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Caregiver Resources</h2>
-        <a href="{{ url_for('caregiver_resources') }}" class="text-decoration-none see-all-link">
-            See all <i data-feather="chevron-right"></i>
-        </a>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="calendar"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Daily Care Planner</h5>
-                    </div>
-                    <p class="card-text">Organize caregiving tasks efficiently</p>
-                    <a href="#" class="btn btn-outline-primary">Plan</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="users"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Caregiver Support Network</h5>
-                    </div>
-                    <p class="card-text">Connect with other caregivers</p>
-                    <a href="#" class="btn btn-outline-primary">Join</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="clipboard"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Medication Management</h5>
-                    </div>
-                    <p class="card-text">Track and manage prescriptions</p>
-                    <a href="#" class="btn btn-outline-primary">Start</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="coffee"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Respite Care Services</h5>
-                    </div>
-                    <p class="card-text">Short-term relief for caregivers</p>
-                    <a href="#" class="btn btn-outline-primary">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Health Articles Section -->
-<section class="section-health-articles mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Health Articles</h2>
-        <a href="{{ url_for('health_articles') }}" class="text-decoration-none see-all-link">
-            See all <i data-feather="chevron-right"></i>
-        </a>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="heart"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Understanding Chronic Pain</h5>
-                    </div>
-                    <p class="card-text">Comprehensive guide on pain management</p>
-                    <a href="#" class="btn btn-outline-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="activity"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Heart Health Essentials</h5>
-                    </div>
-                    <p class="card-text">Tips for a healthy cardiovascular system</p>
-                    <a href="#" class="btn btn-outline-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="smile"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Mental Health Awareness</h5>
-                    </div>
-                    <p class="card-text">Recognizing and addressing mental health issues</p>
-                    <a href="#" class="btn btn-outline-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="icon-circle">
-                            <i data-feather="heart"></i>
-                        </div>
-                        <h5 class="card-title mb-0 ms-3">Pregnancy and Prenatal Care</h5>
-                    </div>
-                    <p class="card-text">Essential information for expecting mothers</p>
-                    <a href="#" class="btn btn-outline-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</div>
 {% endblock %}
