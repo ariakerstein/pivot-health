@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">ADHD Screening Assessment</h2>
+                    <p class="text-muted mb-4">
+                        This screening tool helps identify potential ADHD symptoms. Please answer each question honestly based on your experiences over the past 6 months.
+                    </p>
+                    
+                    <form id="adhdForm" class="needs-validation" novalidate>
+                        <!-- Questions based on DSM-5 criteria -->
+                        <div class="mb-4">
+                            <h5>Attention and Focus</h5>
+                            <div class="mb-3">
+                                <label class="form-label">How often do you have difficulty sustaining attention in tasks?</label>
+                                <select class="form-select" name="attention" required>
+                                    <option value="">Select frequency...</option>
+                                    <option value="0">Never</option>
+                                    <option value="1">Rarely</option>
+                                    <option value="2">Sometimes</option>
+                                    <option value="3">Often</option>
+                                    <option value="4">Very Often</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">How often do you find yourself easily distracted by external stimuli?</label>
+                                <select class="form-select" name="distraction" required>
+                                    <option value="">Select frequency...</option>
+                                    <option value="0">Never</option>
+                                    <option value="1">Rarely</option>
+                                    <option value="2">Sometimes</option>
+                                    <option value="3">Often</option>
+                                    <option value="4">Very Often</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Organization and Time Management</h5>
+                            <div class="mb-3">
+                                <label class="form-label">How often do you have difficulty organizing tasks and activities?</label>
+                                <select class="form-select" name="organization" required>
+                                    <option value="">Select frequency...</option>
+                                    <option value="0">Never</option>
+                                    <option value="1">Rarely</option>
+                                    <option value="2">Sometimes</option>
+                                    <option value="3">Often</option>
+                                    <option value="4">Very Often</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i data-feather="info"></i>
+                            This screening tool is not a diagnostic tool. Please consult with a healthcare professional for proper evaluation.
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Submit Assessment</button>
+                        </div>
+                    </form>
+
+                    <!-- Results Section -->
+                    <div id="results" class="mt-4" style="display: none;">
+                        <h4>Assessment Results</h4>
+                        <div id="resultsContent" class="alert alert-primary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('adhdForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    const responses = Object.fromEntries(formData.entries());
+    
+    try {
+        const response = await fetch('/api/screening/adhd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ responses }),
+        });
+        
+        const result = await response.json();
+        
+        // Display results
+        const resultsDiv = document.getElementById('results');
+        const resultsContent = document.getElementById('resultsContent');
+        resultsDiv.style.display = 'block';
+        
+        resultsContent.innerHTML = `
+            <h5>Risk Level: ${result.risk_level}</h5>
+            <p>${result.recommendations}</p>
+        `;
+        
+        // Scroll to results
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while processing your assessment. Please try again.');
+    }
+});
+</script>
+{% endblock %}

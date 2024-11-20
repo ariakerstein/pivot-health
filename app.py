@@ -1,7 +1,9 @@
 import os
-from flask import Flask, render_template, flash, redirect, url_for, request
+from datetime import timedelta
+from flask import Flask, render_template, flash, redirect, url_for, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from sqlalchemy.orm import DeclarativeBase
 
@@ -11,8 +13,14 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 login_manager = LoginManager()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+CORS(app)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY") or "a secret key"
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
@@ -79,3 +87,18 @@ def logout():
 
 with app.app_context():
     db.create_all()
+
+# AI Screening routes - temporarily in maintenance mode
+@app.route('/screening/adhd')
+@login_required
+def adhd_screening_page():
+    return render_template('screening/maintenance.html', 
+                         feature_name="ADHD Screening",
+                         coming_soon_date="December 2024")
+
+@app.route('/screening/skin')
+@login_required
+def skin_screening_page():
+    return render_template('screening/maintenance.html',
+                         feature_name="AI Skin Screening",
+                         coming_soon_date="December 2024")

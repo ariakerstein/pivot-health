@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">AI Skin Health Assessment</h2>
+                    <p class="text-muted mb-4">
+                        Take a clear photo of your skin concern to receive an AI-powered assessment. Ensure good lighting and focus for the best results.
+                    </p>
+
+                    <form id="skinForm" class="needs-validation" novalidate>
+                        <div class="mb-4">
+                            <label class="form-label">Upload Skin Image</label>
+                            <input type="file" class="form-control" id="skinImage" name="image" accept="image/*" required>
+                            <div class="form-text">
+                                Supported formats: JPG, PNG. Maximum size: 5MB
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i data-feather="info"></i>
+                            This AI assessment is not a substitute for professional medical advice. Please consult a dermatologist for proper diagnosis.
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Analyze Image</button>
+                        </div>
+                    </form>
+
+                    <!-- Preview Image -->
+                    <div id="imagePreview" class="mt-4" style="display: none;">
+                        <h5>Image Preview</h5>
+                        <img id="preview" class="img-fluid rounded" alt="Skin image preview">
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="results" class="mt-4" style="display: none;">
+                        <h4>Assessment Results</h4>
+                        <div id="resultsContent" class="alert alert-primary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Image preview
+document.getElementById('skinImage').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('preview');
+            preview.src = e.target.result;
+            document.getElementById('imagePreview').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Form submission
+document.getElementById('skinForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    try {
+        const response = await fetch('/api/screening/skin', {
+            method: 'POST',
+            body: formData,
+        });
+        
+        const result = await response.json();
+        
+        // Display results
+        const resultsDiv = document.getElementById('results');
+        const resultsContent = document.getElementById('resultsContent');
+        resultsDiv.style.display = 'block';
+        
+        resultsContent.innerHTML = `
+            <h5>Assessment Summary</h5>
+            <p>${result.assessment}</p>
+            <h5>Recommendations</h5>
+            <p>${result.recommendations}</p>
+        `;
+        
+        // Scroll to results
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while processing your image. Please try again.');
+    }
+});
+</script>
+{% endblock %}
