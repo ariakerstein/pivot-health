@@ -73,7 +73,7 @@ body {
     background-color: var(--light-gray);
     margin-bottom: 0.75rem;
     border-radius: 12px;
-    padding: 0.75rem;
+    padding: 1rem;
     transition: all 0.2s ease;
 }
 
@@ -96,8 +96,8 @@ body {
 .recommendations .icon-circle {
     background-color: var(--light-gray);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,20 +121,20 @@ body {
 
 .recommendations .card-title {
     color: #2d3436;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
 .recommendations .card-text {
     color: #636e72;
-    font-size: 0.85rem;
-    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
 }
 
 .recommendations .btn-outline-primary {
     color: var(--primary-black);
     border-color: var(--primary-black);
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 1.75rem;
     border-radius: 12px;
     font-weight: 600;
     transition: all 0.2s ease;
@@ -149,102 +149,12 @@ body {
 }
 
 @media (max-width: 768px) {
-    .dashboard-header {
-        text-align: center;
-        margin: 1rem 0;
-    }
-
-    .dashboard-header h1 {
-        font-size: 1.75rem;
-    }
-
     .recommendations .card {
         margin-bottom: 1rem;
     }
     
     .recommendations .card-title {
-        font-size: 0.9rem;
-    }
-
-    .recommendations .card-text {
-        font-size: 0.8rem;
-    }
-
-    .onboarding-tasks .list-group-item {
-        padding: 0.5rem;
-    }
-
-    .onboarding-tasks .btn {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.9rem;
-    }
-
-    .health-content .card {
-        margin-bottom: 1rem;
-    }
-
-    .navbar-nav {
-        margin-top: 0.5rem;
-    }
-/* Additional responsive breakpoints */
-@media (max-width: 576px) {
-    .container {
-        padding: 0.5rem;
-    }
-
-    .card {
-        border-radius: 12px;
-    }
-
-    .icon-circle {
-        width: 32px;
-        height: 32px;
-    }
-
-    .icon-circle i {
-        width: 18px;
-        height: 18px;
-    }
-
-    .recommendations .btn-outline-primary {
-        width: 100%;
-        margin-top: 0.5rem;
-    }
-
-    .form-control {
-        font-size: 16px; /* Prevents zoom on iOS */
-    }
-}
-
-@media (min-width: 577px) and (max-width: 991px) {
-    .recommendations .card-body {
-        padding: 1rem;
-    }
-
-    .health-content .card-body {
-        padding: 1rem;
-    }
-
-    .navbar .container {
-        padding: 0.5rem 1rem;
-    }
-}
-
-/* Improve touch targets for mobile */
-@media (hover: none) {
-    .btn, 
-    .nav-link,
-    .list-group-item {
-        min-height: 44px; /* iOS minimum touch target size */
-    }
-
-    .recommendations .btn-outline-primary {
-        padding: 0.75rem 1rem;
-    }
-}
-
-    .navbar-brand {
-        font-size: 1.25rem;
+        font-size: 1rem;
     }
 }
 
@@ -274,80 +184,4 @@ body {
 .form-control:focus {
     border-color: var(--pivot-green);
     box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
-}
-/* Mobile Navigation */
-.mobile-nav {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 0.5rem;
-}
-
-.mobile-nav-items {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.mobile-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #666;
-    text-decoration: none;
-    padding: 0.5rem;
-}
-
-.mobile-nav-item.active {
-    color: var(--pivot-green);
-}
-
-.mobile-nav-item i {
-    margin-bottom: 0.25rem;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-    .navbar-nav {
-        display: none;
-    }
-
-    .mobile-nav {
-        display: block;
-    }
-
-    main.container {
-        padding-bottom: 4rem;
-    }
-
-    .card {
-        margin-bottom: 1rem;
-    }
-
-    .btn {
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-    }
-
-    .form-control {
-        height: 3rem;
-        font-size: 1rem;
-    }
-
-    .icon-circle {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-/* iOS Specific Styles */
-@supports (-webkit-touch-callout: none) {
-    .mobile-nav {
-        padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
-    }
 }

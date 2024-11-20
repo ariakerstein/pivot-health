@@ -2,14 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#27ae60">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Pivot Health">
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icons/icon-192x192.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pivot Health - Your Medical Co-pilot</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
@@ -44,28 +37,6 @@
                 {% for message in messages %}
                     <div class="alert alert-info">{{ message }}</div>
                 {% endfor %}
-        {% if current_user.is_authenticated %}
-        <nav class="mobile-nav">
-            <div class="mobile-nav-items">
-                <a href="{{ url_for('dashboard') }}" class="mobile-nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
-                    <i data-feather="home"></i>
-                    <span>Home</span>
-                </a>
-                <a href="{{ url_for('profile') }}" class="mobile-nav-item {% if request.endpoint == 'profile' %}active{% endif %}">
-                    <i data-feather="user"></i>
-                    <span>Profile</span>
-                </a>
-                <a href="#" class="mobile-nav-item">
-                    <i data-feather="heart"></i>
-                    <span>Health</span>
-                </a>
-                <a href="#" class="mobile-nav-item">
-                    <i data-feather="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </div>
-        </nav>
-        {% endif %}
             {% endif %}
         {% endwith %}
         
