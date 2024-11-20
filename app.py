@@ -1,26 +1,15 @@
-import os
-from flask import Flask, render_template, flash, redirect, url_for, request
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from werkzeug.utils import secure_filename
-from sqlalchemy.orm import DeclarativeBase
-
-class Base(DeclarativeBase):
-    pass
-
-db = SQLAlchemy(model_class=Base)
-login_manager = LoginManager()
+from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("FLASK_SECRET_KEY") or "a secret key"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
-    "pool_recycle": 300,
-    "pool_pre_ping": True,
-}
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)
+db = SQLAlchemy(app)
+login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
@@ -29,53 +18,76 @@ def load_user(id):
     return db.session.get(User, int(id))
 
 from models import User, MedicalRecord, HealthProfile
-from forms import LoginForm, RegistrationForm, HealthProfileForm
+from forms import LoginForm, RegistrationForm, HealthProfileForm, ScreeningAppointmentForm
 
 @app.route('/')
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-    form = LoginForm()
-    return render_template('login.html', form=form)
+    return render_template('index.html')
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    health_profile = current_user.health_profile
-    medical_records = current_user.medical_records
-    return render_template('dashboard.html', 
-                         health_profile=health_profile,
-                         medical_records=medical_records)
+    return render_template('dashboard.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user)
-            return redirect(url_for('dashboard'))
-        flash('Invalid email or password')
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('index'))
     return render_template('login.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Registration successful!')
+        flash('Congratulations, you are now registered!')
         return redirect(url_for('login'))
     return render_template('signup.html', form=form)
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/health/screening', methods=['GET', 'POST'])
+@login_required
+def health_screening():
+    """Route to show available health screening options and handle appointments"""
+    form = ScreeningAppointmentForm()
+    if form.validate_on_submit():
+        # Create appointment record
+        flash(f'Your {form.screening_type.data} screening has been scheduled for {form.preferred_date.data} during {form.preferred_time.data}.')
+        return redirect(url_for('dashboard'))
+    
+    # Get screening type from query params
+    screening_type = request.args.get('type', 'general')
+    return render_template('health_screening.html', form=form, active_screening=screening_type)
+
+@app.route('/health/schedule/<screening_type>', methods=['GET', 'POST'])
+@login_required
+def schedule_screening(screening_type):
+    """Route to schedule specific screening appointments"""
+    form = ScreeningAppointmentForm()
+    if form.validate_on_submit():
+        flash(f'Your {screening_type} screening has been scheduled successfully.')
+        return redirect(url_for('dashboard'))
+    return render_template('schedule_screening.html', form=form, screening_type=screening_type)
 
 with app.app_context():
     db.create_all()

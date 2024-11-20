@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Health Screening Services</h2>
+            <p class="text-muted">Schedule professional health screenings with our certified healthcare providers</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- General Health Screening -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card service-card green h-100">
+                <div class="card-body">
+                    <div class="icon-circle">
+                        <i data-feather="activity"></i>
+                    </div>
+                    <h5>General Health Screening</h5>
+                    <p>Comprehensive physical examination and basic health assessment</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i data-feather="check" class="text-success"></i> Blood Pressure Check</li>
+                        <li><i data-feather="check" class="text-success"></i> BMI Assessment</li>
+                        <li><i data-feather="check" class="text-success"></i> Basic Blood Work</li>
+                    </ul>
+                    <a href="{{ url_for('health_screening') }}?type=general" class="btn btn-success mt-3">Schedule Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mental Health Assessment -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card service-card blue h-100">
+                <div class="card-body">
+                    <div class="icon-circle">
+                        <i data-feather="heart"></i>
+                    </div>
+                    <h5>Mental Health Assessment</h5>
+                    <p>Professional mental health evaluation and consultation</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i data-feather="check" class="text-success"></i> Depression Screening</li>
+                        <li><i data-feather="check" class="text-success"></i> Anxiety Assessment</li>
+                        <li><i data-feather="check" class="text-success"></i> Stress Level Evaluation</li>
+                    </ul>
+                    <a href="{{ url_for('health_screening') }}?type=mental" class="btn btn-primary mt-3">Schedule Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dermatology Consultation -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card service-card golden h-100">
+                <div class="card-body">
+                    <div class="icon-circle">
+                        <i data-feather="user"></i>
+                    </div>
+                    <h5>Dermatology Consultation</h5>
+                    <p>Professional skin health assessment and care recommendations</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i data-feather="check" class="text-success"></i> Skin Examination</li>
+                        <li><i data-feather="check" class="text-success"></i> Mole Assessment</li>
+                        <li><i data-feather="check" class="text-success"></i> Treatment Planning</li>
+                    </ul>
+                    <a href="{{ url_for('health_screening') }}?type=dermatology" class="btn btn-warning mt-3">Schedule Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cardiovascular Health Check -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card service-card burgundy h-100">
+                <div class="card-body">
+                    <div class="icon-circle">
+                        <i data-feather="heart"></i>
+                    </div>
+                    <h5>Cardiovascular Health Check</h5>
+                    <p>Comprehensive heart health assessment</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i data-feather="check" class="text-success"></i> ECG Test</li>
+                        <li><i data-feather="check" class="text-success"></i> Blood Pressure Monitoring</li>
+                        <li><i data-feather="check" class="text-success"></i> Cholesterol Screening</li>
+                    </ul>
+                    <a href="{{ url_for('health_screening') }}?type=cardio" class="btn btn-danger mt-3">Schedule Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
