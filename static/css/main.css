@@ -250,6 +250,33 @@ body {
 
 .health-content .card {
     height: 100%;
+/* Recommendations Section Styles */
+.recommendations .card {
+    background-color: #f0fdf4 !important; /* Light green background */
+    border: 1px solid #dcfce7;
+    transition: all 0.3s ease;
+}
+
+.recommendations .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.recommendations .icon-circle {
+    background-color: white;
+    color: var(--pivot-green);
+}
+
+.recommendations .card:hover .icon-circle {
+    background-color: var(--pivot-green);
+    color: white;
+}
+
+.recommendations .btn-outline-primary:hover {
+    background-color: var(--pivot-green);
+    border-color: var(--pivot-green);
+    color: white;
+}
 }
 
 /* Marketplace Sections Styles */

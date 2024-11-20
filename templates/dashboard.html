@@ -1,10 +1,108 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="dashboard-header">
+<div class="dashboard-header mb-5">
     <h1>Welcome back, {{ current_user.username }}</h1>
     <p class="text-muted">Your personalized health dashboard</p>
 </div>
+
+<!-- Onboarding Section -->
+<div class="onboarding-tasks mb-5">
+    <h2>Let's get you onboarded</h2>
+    <div class="list-group">
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i data-feather="upload"></i>
+                Upload your medical records
+            </div>
+            <button class="btn btn-outline-primary">Upload</button>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i data-feather="users"></i>
+                Join the Community
+            </div>
+            <button class="btn btn-outline-primary">Join Now</button>
+        </div>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <i data-feather="file-text"></i>
+                Complete your medical intake
+            </div>
+            <button class="btn btn-outline-primary">Start</button>
+        </div>
+    </div>
+</div>
+
+<!-- Pivot Copilot Recommendations -->
+<section class="recommendations mb-5">
+    <h2 class="mb-4">Your Pivot Copilot recommends</h2>
+    <div class="row g-4">
+        <!-- Annual Check-up Card -->
+        <div class="col-md-6">
+            <div class="card h-100 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle">
+                            <i data-feather="calendar"></i>
+                        </div>
+                        <h5 class="card-title mb-0 ms-3">Schedule Annual Check-up</h5>
+                    </div>
+                    <p class="card-text">Based on your age and health profile, it's time for your annual physical examination.</p>
+                    <button class="btn btn-outline-primary">Schedule Now</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Home Monitoring Devices Card -->
+        <div class="col-md-6">
+            <div class="card h-100 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle">
+                            <i data-feather="smartphone"></i>
+                        </div>
+                        <h5 class="card-title mb-0 ms-3">Spotlight on Home Monitoring Devices</h5>
+                    </div>
+                    <p class="card-text">Explore the latest in home health monitoring technology to track your vital signs.</p>
+                    <button class="btn btn-outline-primary">View Devices</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ADHD Screening Card -->
+        <div class="col-md-6">
+            <div class="card h-100 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle">
+                            <i data-feather="activity"></i>
+                        </div>
+                        <h5 class="card-title mb-0 ms-3">Take an ADHD Screening Test</h5>
+                    </div>
+                    <p class="card-text">Assess your focus and attention with our online ADHD screening tool.</p>
+                    <button class="btn btn-outline-primary">Start Screening</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Skin Screen Card -->
+        <div class="col-md-6">
+            <div class="card h-100 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle">
+                            <i data-feather="camera"></i>
+                        </div>
+                        <h5 class="card-title mb-0 ms-3">Take a One-Minute AI Skin Screen</h5>
+                    </div>
+                    <p class="card-text">Quickly assess your skin health with our AI-powered screening tool. Time to smile!</p>
+                    <button class="btn btn-outline-primary">Start Screening</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Recently Viewed Section -->
 <section class="section-recently-viewed mb-5">
@@ -78,7 +176,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
-                            <i data-feather="x-ray"></i>
+                            <i data-feather="activity"></i>
                         </div>
                         <h5 class="card-title mb-0 ms-3">X-Ray Imaging</h5>
                     </div>
@@ -186,7 +284,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
-                            <i data-feather="wheelchair"></i>
+                            <i data-feather="life-buoy"></i>
                         </div>
                         <h5 class="card-title mb-0 ms-3">Wheelchair Selection Guide</h5>
                     </div>
@@ -364,7 +462,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="icon-circle">
-                            <i data-feather="baby"></i>
+                            <i data-feather="heart"></i>
                         </div>
                         <h5 class="card-title mb-0 ms-3">Pregnancy and Prenatal Care</h5>
                     </div>
