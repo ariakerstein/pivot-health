@@ -261,30 +261,7 @@ body {
     }
 }
 
-/* Recently Viewed Section */
-.recently-viewed .horizontal-scroll {
-    overflow-x: auto;
-    padding: 1rem 0;
-}
 
-.recently-viewed .gradient-card {
-    background: linear-gradient(135deg, #4a0080, #9d4edd);
-    color: white;
-    min-width: 300px;
-    margin-right: 1rem;
-    border: none;
-    transition: transform 0.3s ease;
-}
-
-.recently-viewed .gradient-card:hover {
-    transform: translateY(-5px);
-}
-
-.see-all-link {
-    color: var(--primary-black);
-    text-decoration: none;
-    font-weight: 600;
-}
 
 /* Service Cards */
 .service-card {

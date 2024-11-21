@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pivot Health Mobile - Your Medical Co-pilot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/mobile.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-white mobile-nav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Pivot Health</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-end" id="mobileMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="mobile-menu">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('dashboard') }}" class="menu-item">
+                        <i data-feather="home"></i> Dashboard
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i data-feather="file-text"></i> My Records
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i data-feather="heart"></i> Recommendations
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i data-feather="users"></i> Loved Ones
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i data-feather="shield"></i> Insurance
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="menu-item">
+                        <i data-feather="log-out"></i> Logout
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="menu-item">
+                        <i data-feather="log-in"></i> Login
+                    </a>
+                    <a href="{{ url_for('signup') }}" class="menu-item">
+                        <i data-feather="user-plus"></i> Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <main class="container-fluid mobile-container mt-3">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+    <script src="{{ url_for('static', filename='js/mobile.js') }}"></script>
+</body>
+</html>

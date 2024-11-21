@@ -1,0 +1,132 @@
+:root {
+    --primary-black: #1a1a1a;
+    --primary-gray: #4a4a4a;
+    --accent-gray: #757575;
+    --light-gray: #f5f5f5;
+    --hover-gray: #e0e0e0;
+    --white: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--light-gray);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.mobile-container {
+    padding: 15px;
+    max-width: 100%;
+}
+
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    margin-bottom: 15px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    color: var(--primary-black);
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.menu-item:active {
+    background-color: var(--light-gray);
+}
+
+.menu-item i {
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: 600;
+}
+
+.btn-success {
+    background-color: var(--primary-black);
+    border-color: var(--primary-black);
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--accent-gray);
+}
+
+/* Mobile-specific cards */
+.quick-action-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.quick-action-card .icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    box-shadow: 0 -2px 4px var(--shadow-color);
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--primary-gray);
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.bottom-nav-item i {
+    margin-bottom: 4px;
+}
+
+/* Mobile-specific animations */
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+}

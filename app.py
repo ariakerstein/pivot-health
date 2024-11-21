@@ -1,4 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
+from flask_mobility import Mobility
+from flask_mobility.decorators import mobile_template
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
