@@ -3,7 +3,8 @@ from flask import flash
 
 def schedule_health_screening(user, screening_type, preferred_date, preferred_time, notes=None):
     """
-    Schedule a conventional health screening appointment
+    Schedule a professional health consultation appointment.
+    Redirects users to schedule appointments with qualified healthcare professionals.
     """
     try:
         if not all([user, screening_type, preferred_date, preferred_time]):
@@ -15,9 +16,16 @@ def schedule_health_screening(user, screening_type, preferred_date, preferred_ti
             raise ValueError("Invalid screening type")
 
         # Validate date (must be future date)
-        preferred_date = datetime.strptime(preferred_date, '%Y-%m-%d').date()
+        if isinstance(preferred_date, str):
+            preferred_date = datetime.strptime(preferred_date, '%Y-%m-%d').date()
         if preferred_date < datetime.now().date():
             raise ValueError("Cannot schedule appointment in the past")
+
+        # Validate time slot availability
+        available_slots = get_available_slots(screening_type, preferred_date)
+        time_period = 'morning' if 'AM' in preferred_time else 'afternoon' if 'PM' in preferred_time and int(preferred_time.split(':')[0]) < 5 else 'evening'
+        if preferred_time not in available_slots[time_period]:
+            raise ValueError("Selected time slot is not available")
 
         # Create screening record
         screening = {

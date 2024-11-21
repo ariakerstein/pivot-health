@@ -3,6 +3,7 @@ from flask_login import LoginManager, current_user, login_user, logout_user, log
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from health_screening import schedule_health_screening, get_available_slots
+from datetime import datetime
 import os
 
 app = Flask(__name__)
@@ -91,32 +92,44 @@ def logout():
 @app.route('/health/screening', methods=['GET', 'POST'])
 @login_required
 def health_screening():
-    """Route to show available health screening options and handle appointments"""
+    """Route to schedule professional health consultations"""
+    from health_screening.screening_utils import get_screening_questions
+    
     form = ScreeningAppointmentForm()
     if form.validate_on_submit():
         try:
-            screening = HealthScreening(
+            consultation = HealthScreening(
                 user_id=current_user.id,
                 screening_type=form.screening_type.data,
                 preferred_date=form.preferred_date.data,
                 preferred_time=form.preferred_time.data,
                 notes=form.notes.data,
-                status='scheduled'
+                status='pending'
             )
-            db.session.add(screening)
+            db.session.add(consultation)
             db.session.commit()
             
-            # Send confirmation email (can be implemented later)
-            flash(f'Your {form.screening_type.data} screening has been scheduled for {form.preferred_date.data} at {form.preferred_time.data}.')
+            # Get pre-consultation questions
+            consultation_questions = get_screening_questions(form.screening_type.data)
+            
+            flash(f'Your {form.screening_type.data} consultation has been requested for {form.preferred_date.data} at {form.preferred_time.data}. Our team will contact you to confirm the appointment.')
             return redirect(url_for('dashboard'))
         except Exception as e:
             db.session.rollback()
-            flash('An error occurred while scheduling your appointment. Please try again.', 'error')
-            app.logger.error(f'Error scheduling screening: {str(e)}')
+            flash('An error occurred while scheduling your consultation. Please try again.', 'error')
+            app.logger.error(f'Error scheduling consultation: {str(e)}')
     
     screening_type = request.args.get('type', 'general')
     available_slots = get_available_slots(screening_type, form.preferred_date.data if form.preferred_date.data else None)
-    return render_template('health_screening.html', form=form, active_screening=screening_type, available_slots=available_slots)
+    screening_questions = get_screening_questions(screening_type)
+    
+    return render_template(
+        'health_screening.html',
+        form=form,
+        active_screening=screening_type,
+        available_slots=available_slots,
+        screening_questions=screening_questions
+    )
 
 @app.route('/health/schedule/<screening_type>', methods=['GET', 'POST'])
 @login_required
