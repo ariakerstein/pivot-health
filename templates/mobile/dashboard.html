@@ -1,0 +1,150 @@
+{% extends "mobile/base.html" %}
+
+{% block content %}
+<div class="mobile-dashboard">
+    <div class="welcome-section mb-4">
+        <h1 class="h3">Welcome back, {{ current_user.username }}</h1>
+        <p class="text-muted">Your health journey at a glance</p>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions mb-4">
+        <div class="action-grid">
+            <a href="{{ url_for('health_screening') }}" class="action-item">
+                <div class="icon-circle">
+                    <i data-feather="calendar"></i>
+                </div>
+                <span>Schedule Screening</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="icon-circle">
+                    <i data-feather="file-text"></i>
+                </div>
+                <span>View Records</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="icon-circle">
+                    <i data-feather="heart"></i>
+                </div>
+                <span>My Health</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="icon-circle">
+                    <i data-feather="users"></i>
+                </div>
+                <span>Support</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Health Journey -->
+    <div class="journey-section mb-4">
+        <h2 class="section-title">Your Health Journey</h2>
+        <div class="journey-container">
+            <div class="journey-step" data-bs-toggle="modal" data-bs-target="#diagnosisModal">
+                <div class="step-icon">
+                    <i data-feather="clipboard"></i>
+                </div>
+                <h5>Diagnosis</h5>
+                <p>Schedule screening</p>
+                <div class="progress-indicator"></div>
+            </div>
+            <div class="journey-arrow">
+                <i data-feather="chevron-down"></i>
+            </div>
+            <div class="journey-step" data-bs-toggle="modal" data-bs-target="#understandingModal">
+                <div class="step-icon">
+                    <i data-feather="book-open"></i>
+                </div>
+                <h5>Understanding</h5>
+                <p>Health goals</p>
+                <div class="progress-indicator"></div>
+            </div>
+            <div class="journey-arrow">
+                <i data-feather="chevron-down"></i>
+            </div>
+            <div class="journey-step" data-bs-toggle="modal" data-bs-target="#treatmentModal">
+                <div class="step-icon">
+                    <i data-feather="activity"></i>
+                </div>
+                <h5>Treatment</h5>
+                <p>Care options</p>
+                <div class="progress-indicator"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="recommendations-section mb-4">
+        <h2 class="section-title">Recommended for You</h2>
+        <div class="recommendation-cards">
+            <div class="card recommendation-card">
+                <div class="card-body">
+                    <div class="icon-circle mb-3">
+                        <i data-feather="calendar"></i>
+                    </div>
+                    <h5>Annual Check-up</h5>
+                    <p>Schedule your yearly health assessment</p>
+                    <button class="btn btn-outline-primary w-100">Schedule Now</button>
+                </div>
+            </div>
+            <div class="card recommendation-card">
+                <div class="card-body">
+                    <div class="icon-circle mb-3">
+                        <i data-feather="heart"></i>
+                    </div>
+                    <h5>Health Assessment</h5>
+                    <p>Complete your health profile</p>
+                    <button class="btn btn-outline-primary w-100">Start Assessment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Journey Modals -->
+<div class="modal fade" id="diagnosisModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Schedule Screening</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Take the first step in your health journey with a comprehensive screening.</p>
+                <a href="{{ url_for('health_screening') }}" class="btn btn-primary w-100">Schedule Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="understandingModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Understanding Your Health</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Learn about your health status and set meaningful goals.</p>
+                <button class="btn btn-primary w-100">Set Goals</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="treatmentModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Treatment Options</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Explore available treatment options and care paths.</p>
+                <button class="btn btn-primary w-100">View Options</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

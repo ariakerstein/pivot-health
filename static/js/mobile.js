@@ -77,17 +77,62 @@ function handleHorizontalSwipe() {
     }
 }
 
-// Journey Map Touch Interactions
 document.addEventListener('DOMContentLoaded', function() {
-    const journeySteps = document.querySelectorAll('.journey-step');
-    
-    journeySteps.forEach(step => {
-        step.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.98)';
-        });
+    // Initialize Feather icons
+    feather.replace();
 
-        step.addEventListener('touchend', function() {
+    // Touch feedback for all interactive elements
+    const touchElements = document.querySelectorAll('.action-item, .journey-step, .card');
+    
+    touchElements.forEach(element => {
+        element.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.98)';
+            this.style.transition = 'transform 0.2s ease';
+        }, { passive: true });
+
+        element.addEventListener('touchend', function() {
             this.style.transform = 'scale(1)';
-        });
+        }, { passive: true });
     });
+
+    // Smooth scrolling for recommendation cards
+    const recommendationContainer = document.querySelector('.recommendation-cards');
+    if (recommendationContainer) {
+        let isScrolling = false;
+        let startX;
+        let scrollLeft;
+
+        recommendationContainer.addEventListener('touchstart', (e) => {
+            isScrolling = true;
+            startX = e.touches[0].pageX - recommendationContainer.offsetLeft;
+            scrollLeft = recommendationContainer.scrollLeft;
+        }, { passive: true });
+
+        recommendationContainer.addEventListener('touchmove', (e) => {
+            if (!isScrolling) return;
+            const x = e.touches[0].pageX - recommendationContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            recommendationContainer.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
+
+        recommendationContainer.addEventListener('touchend', () => {
+            isScrolling = false;
+        }, { passive: true });
+    }
+
+    // Handle back navigation gesture
+    let touchStartX = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const deltaX = touchEndX - touchStartX;
+
+        if (deltaX > 100) { // Right swipe - go back
+            window.history.back();
+        }
+    }, { passive: true });
 });

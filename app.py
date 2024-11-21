@@ -54,8 +54,9 @@ def index():
 
 @app.route('/dashboard')
 @login_required
-def dashboard():
-    return render_template('dashboard.html')
+@mobile_template('/{mobile/}dashboard.html')
+def dashboard(template):
+    return render_template(template)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

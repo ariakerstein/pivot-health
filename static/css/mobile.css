@@ -170,3 +170,121 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+/* Mobile Dashboard Styles */
+.mobile-dashboard {
+    padding: 1rem;
+}
+
+.welcome-section {
+    text-align: left;
+}
+
+.welcome-section h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Quick Actions Grid */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    text-decoration: none;
+    color: var(--primary-black);
+    transition: transform 0.2s ease;
+}
+
+.action-item:active {
+    transform: scale(0.95);
+}
+
+.action-item .icon-circle {
+    width: 48px;
+    height: 48px;
+    background: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.action-item span {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Recommendation Cards */
+.recommendation-cards {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+}
+
+.recommendation-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.recommendation-card .card-body {
+    padding: 1.25rem;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+
+/* Enhanced Touch Interactions */
+.btn {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+/* Mobile Animations */
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.mobile-dashboard > div {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+.mobile-dashboard > div:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.mobile-dashboard > div:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.mobile-dashboard > div:nth-child(4) {
+    animation-delay: 0.3s;
+}
