@@ -130,3 +130,43 @@ body {
 .animate-slide-up {
     animation: slideUp 0.3s ease-out;
 }
+
+/* Mobile Journey Map Styles */
+.journey-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.journey-step {
+    width: 100%;
+    min-width: unset;
+    padding: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.journey-arrow {
+    transform: rotate(90deg);
+    margin: 0.5rem 0;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* Enhanced touch interaction */
+.journey-step:active {
+    transform: scale(0.98);
+    background-color: var(--light-gray);
+}
+
+/* Custom scrollbar for journey container */
+.journey-container::-webkit-scrollbar {
+    display: none;
+}
+
+.journey-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

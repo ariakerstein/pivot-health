@@ -340,3 +340,104 @@ body {
         min-width: 250px;
     }
 }
+/* Journey Map Styles */
+.journey-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0;
+    overflow-x: auto;
+    gap: 1rem;
+}
+
+.journey-step {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.journey-step:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 12px var(--shadow-color);
+}
+
+.step-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    transition: all 0.3s ease;
+}
+
+.journey-step:hover .step-icon {
+    background-color: var(--primary-black);
+    color: var(--white);
+}
+
+.journey-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--primary-gray);
+    animation: arrowPulse 1.5s infinite;
+}
+
+.progress-indicator {
+    height: 4px;
+    background: var(--light-gray);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 16px 16px;
+    overflow: hidden;
+}
+
+.progress-indicator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--primary-black);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.journey-step:hover .progress-indicator::after {
+    transform: scaleX(1);
+}
+
+@keyframes arrowPulse {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+    .journey-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .journey-arrow {
+        transform: rotate(90deg);
+    }
+
+    .journey-step {
+        width: 100%;
+        min-width: unset;
+    }
+}

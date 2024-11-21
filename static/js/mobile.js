@@ -76,3 +76,18 @@ function handleHorizontalSwipe() {
         bsMenu.hide();
     }
 }
+
+// Journey Map Touch Interactions
+document.addEventListener('DOMContentLoaded', function() {
+    const journeySteps = document.querySelectorAll('.journey-step');
+    
+    journeySteps.forEach(step => {
+        step.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+
+        step.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+});

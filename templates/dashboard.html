@@ -102,6 +102,124 @@
     </div>
 </div>
 
+<div class="journey-map mb-5">
+    <h2>Your Health Journey</h2>
+    <div class="journey-container">
+        <div class="journey-step" data-bs-toggle="modal" data-bs-target="#diagnosisModal">
+            <div class="step-icon">
+                <i data-feather="clipboard"></i>
+            </div>
+            <h5>Diagnosis</h5>
+            <p>Schedule your health screening</p>
+            <div class="progress-indicator"></div>
+        </div>
+        <div class="journey-arrow">
+            <i data-feather="arrow-right"></i>
+        </div>
+        <div class="journey-step" data-bs-toggle="modal" data-bs-target="#understandingModal">
+            <div class="step-icon">
+                <i data-feather="book-open"></i>
+            </div>
+            <h5>Understanding</h5>
+            <p>Learn about your health goals</p>
+            <div class="progress-indicator"></div>
+        </div>
+        <div class="journey-arrow">
+            <i data-feather="arrow-right"></i>
+        </div>
+        <div class="journey-step" data-bs-toggle="modal" data-bs-target="#supportModal">
+            <div class="step-icon">
+                <i data-feather="users"></i>
+            </div>
+            <h5>Support Network</h5>
+            <p>Connect with healthcare providers</p>
+            <div class="progress-indicator"></div>
+        </div>
+        <div class="journey-arrow">
+            <i data-feather="arrow-right"></i>
+        </div>
+        <div class="journey-step" data-bs-toggle="modal" data-bs-target="#treatmentModal">
+            <div class="step-icon">
+                <i data-feather="activity"></i>
+            </div>
+            <h5>Treatment Decision</h5>
+            <p>Choose your care path</p>
+            <div class="progress-indicator"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Journey Map Modals -->
+<div class="modal fade" id="diagnosisModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Schedule Health Screening</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Take the first step in your health journey by scheduling a comprehensive health screening.</p>
+                <div class="d-grid">
+                    <a href="{{ url_for('health_screening') }}" class="btn btn-success">Schedule Screening</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="understandingModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Understanding Your Health Goals</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Learn about your health status and set meaningful goals for your wellness journey.</p>
+                <ul class="list-unstyled">
+                    <li><i data-feather="check" class="text-success"></i> Review your health metrics</li>
+                    <li><i data-feather="check" class="text-success"></i> Set personal health goals</li>
+                    <li><i data-feather="check" class="text-success"></i> Track your progress</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="supportModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Build Your Support Network</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Connect with healthcare providers and others who can support your health journey.</p>
+                <div class="d-grid">
+                    <a href="#" class="btn btn-success">Find Providers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="treatmentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Treatment Options</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Explore and choose the best treatment options for your specific needs.</p>
+                <div class="d-grid">
+                    <a href="#" class="btn btn-success">View Treatment Options</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="health-content mb-5">
     <h2>Personalized Health Recommendations</h2>
     <div class="row g-4">
