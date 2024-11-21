@@ -1,6 +1,4 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_mobility import Mobility
-from flask_mobility.decorators import mobile_template
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -11,26 +9,14 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
-# Configure SQLAlchemy with SSL and connection retries
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
-if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
-    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://', 1)
-
-# Enhanced database configuration with SSL and retry settings
+# Configure SQLAlchemy for Replit deployment
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    'connect_args': {
-        'sslmode': 'require',
-        'sslcert': None,
-        'sslkey': None,
-        'sslrootcert': None,
-        'connect_timeout': 10
-    },
-    'pool_pre_ping': True,
-    'pool_recycle': 300,
+    'pool_size': 3,
+    'max_overflow': 2,
     'pool_timeout': 30,
-    'pool_size': 10,
-    'max_overflow': 20,
-    'echo': True
+    'pool_pre_ping': True,
+    'pool_recycle': 1800
 }
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -41,7 +27,11 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(id):
-    return db.session.get(User, int(id))
+    try:
+        return db.session.get(User, int(id))
+    except Exception as e:
+        app.logger.error(f"Error loading user: {str(e)}")
+        return None
 
 from models import User, MedicalRecord, HealthProfile
 from forms import LoginForm, RegistrationForm, HealthProfileForm, ScreeningAppointmentForm
@@ -54,9 +44,10 @@ def index():
 
 @app.route('/dashboard')
 @login_required
-@mobile_template('/{mobile/}dashboard.html')
-def dashboard(template):
-    return render_template(template)
+def dashboard():
+    if request.user_agent.platform and request.user_agent.platform.lower() in ['iphone', 'android']:
+        return render_template('mobile/dashboard.html')
+    return render_template('dashboard.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -94,8 +85,7 @@ def logout():
 
 @app.route('/health/screening', methods=['GET', 'POST'])
 @login_required
-@mobile_template('/{mobile/}health_screening.html')
-def health_screening(template):
+def health_screening():
     """Route to schedule professional health consultations"""
     from health_screening.screening_utils import get_screening_questions
     
@@ -160,5 +150,19 @@ def schedule_screening(screening_type):
             app.logger.error(f'Error scheduling screening: {str(e)}')
     return render_template('schedule_screening.html', form=form, screening_type=screening_type)
 
-with app.app_context():
-    db.create_all()
+def init_db():
+    try:
+        with app.app_context():
+            db.create_all()
+            app.logger.info("Database tables created successfully")
+            # Verify database connection
+            from sqlalchemy import text
+            db.session.execute(text('SELECT 1'))
+            app.logger.info("Database connection verified")
+    except Exception as e:
+        app.logger.error(f"Error initializing database: {str(e)}")
+        raise
+
+if __name__ != '__main__':
+    # Initialize database when imported as a module
+    init_db()
