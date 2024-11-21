@@ -288,3 +288,57 @@ body {
 .mobile-dashboard > div:nth-child(4) {
     animation-delay: 0.3s;
 }
+/* Health Screening Styles */
+.mobile-screening {
+    padding: 1rem;
+}
+
+.screening-header {
+    text-align: left;
+}
+
+.screening-cards .card {
+    border-radius: 16px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform 0.2s ease;
+}
+
+.screening-cards .card:active {
+    transform: scale(0.98);
+}
+
+.screening-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.screening-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.screening-features li i {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-circle {
+    width: 48px;
+    height: 48px;
+    background: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Touch-friendly buttons */
+.btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+}

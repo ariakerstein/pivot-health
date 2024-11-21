@@ -94,7 +94,8 @@ def logout():
 
 @app.route('/health/screening', methods=['GET', 'POST'])
 @login_required
-def health_screening():
+@mobile_template('/{mobile/}health_screening.html')
+def health_screening(template):
     """Route to schedule professional health consultations"""
     from health_screening.screening_utils import get_screening_questions
     
