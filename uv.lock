@@ -503,6 +503,7 @@ dependencies = [
     { name = "openai" },
     { name = "psycopg2-binary" },
     { name = "user-agents" },
+    { name = "werkzeug" },
 ]
 
 [package.metadata]
@@ -516,6 +517,7 @@ requires-dist = [
     { name = "openai", specifier = ">=1.55.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "user-agents", specifier = ">=2.2.0" },
+    { name = "werkzeug" },
 ]
 
 [[package]]
