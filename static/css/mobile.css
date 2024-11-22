@@ -1,3 +1,44 @@
+/* Mobile Chat Interface Styles */
+@media (max-width: 768px) {
+    .chat-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .chat-input-column, .chat-response-column {
+        padding: 0.75rem;
+    }
+    
+    .chat-responses {
+        height: 250px;
+    }
+    
+    .chat-input {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    .chat-submit {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .chat-bubble {
+        max-width: 90%;
+        padding: 0.75rem;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .chat-input {
+        padding: 1rem;
+    }
+    
+    .chat-submit {
+        padding: 0.875rem 1.25rem;
+        min-height: 44px;
+    }
+}
 :root {
     --primary-black: #1a1a1a;
     --primary-gray: #4a4a4a;

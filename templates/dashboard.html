@@ -6,6 +6,36 @@
     <p class="text-muted">Your personalized health dashboard</p>
 </div>
 
+<div class="diagnostic-chat mb-5">
+    <h2>Health Assistant</h2>
+    <div class="chat-container">
+        <div class="chat-input-column">
+            <form id="chatForm" class="chat-form">
+                <div class="chat-input-wrapper">
+                    <textarea 
+                        class="form-control chat-input" 
+                        placeholder="Ask about your health concerns..."
+                        rows="3"
+                    ></textarea>
+                    <button type="submit" class="btn btn-primary chat-submit">
+                        <i data-feather="send"></i>
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="chat-response-column">
+            <div class="chat-responses">
+                <div class="welcome-message">
+                    <div class="chat-bubble assistant">
+                        <p>Hello! I'm your health assistant. How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="onboarding-tasks mb-5">
     <h2>Let's get you onboarded</h2>
     <div class="list-group">

@@ -1,3 +1,91 @@
+/* Chat Interface Styles */
+.diagnostic-chat {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.chat-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.chat-input-column, .chat-response-column {
+    background: var(--light-gray);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.chat-input-wrapper {
+    position: relative;
+}
+
+.chat-input {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    resize: none;
+    padding: 1rem;
+    font-size: 0.95rem;
+    background: var(--white);
+}
+
+.chat-submit {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.chat-responses {
+    height: 300px;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.chat-bubble {
+    max-width: 85%;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.chat-bubble.user {
+    background: var(--primary-color);
+    color: var(--white);
+    margin-left: auto;
+}
+
+.chat-bubble.assistant {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    .diagnostic-chat {
+        background: var(--dark-gray);
+    }
+    
+    .chat-input-column, .chat-response-column {
+        background: var(--darker-gray);
+    }
+    
+    .chat-input {
+        background: var(--dark-gray);
+        color: var(--white);
+    }
+    
+    .chat-bubble.assistant {
+        background: var(--dark-gray);
+        border-color: var(--border-color-dark);
+    }
+}
 :root {
     --primary-black: #1a1a1a;
     --primary-gray: #4a4a4a;
