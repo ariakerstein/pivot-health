@@ -65,6 +65,75 @@
     background: var(--white);
     border: 1px solid var(--border-color);
 }
+/* Trust Meter Styles */
+.trust-meter {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.meter-bar {
+    height: 4px;
+    background: var(--light-gray);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-black) 0%, #4a4a4a 100%);
+    border-radius: 2px;
+    transition: width 0.3s ease-in-out;
+    animation: fillAnimation 0.5s ease-out;
+}
+
+.meter-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--accent-gray);
+    margin-top: 0.25rem;
+}
+
+@keyframes fillAnimation {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Dark mode styles for trust meter */
+@media (prefers-color-scheme: dark) {
+    .trust-meter {
+        border-top-color: var(--border-color-dark);
+    }
+    
+    .meter-bar {
+        background: var(--darker-gray);
+    }
+    
+    .meter-fill {
+        background: linear-gradient(90deg, var(--white) 0%, var(--accent-gray) 100%);
+    }
+    
+    .meter-label {
+        color: var(--light-gray);
+    }
+}
+
+/* Mobile responsiveness for trust meter */
+@media (max-width: 768px) {
+    .trust-meter {
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+    }
+    
+    .meter-label {
+        font-size: 0.75rem;
+    }
+}
 
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
