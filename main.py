@@ -13,8 +13,8 @@ def start_server():
         logger.info("Initializing database...")
         init_db()
         
-        # Get port from environment variables, defaulting to 5000 which is Flask's default
-        port = int(os.environ.get('PORT', 5000))
+        # Get port from environment variables, with Replit-specific configuration
+        port = int(os.environ.get('PORT', os.environ.get('REPLIT_PORT', 5000)))
         logger.info(f"Starting server on port {port}")
         
         # Run the application
@@ -22,7 +22,8 @@ def start_server():
             host='0.0.0.0',
             port=port,
             debug=False,
-            use_reloader=False  # Disable reloader in production
+            use_reloader=False,  # Disable reloader in production
+            threaded=True  # Enable threading for better concurrency
         )
     except Exception as e:
         logger.error(f"Failed to start server: {str(e)}")
