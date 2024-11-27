@@ -19,7 +19,7 @@ def is_port_in_use(port):
         except socket.error:
             return True
 
-def find_available_port(start_port=5000, max_port=5100):
+def find_available_port(start_port=5000, max_port=9000):
     port = start_port
     while port <= max_port:
         if not is_port_in_use(port):
@@ -46,13 +46,44 @@ def start_server():
         app.config['TESTING'] = False
         
         # Start the server
-        app.run(
-            host='0.0.0.0',
-            port=port,
-            debug=False,
-            use_reloader=False,
-            threaded=True
-        )
+        if os.environ.get('PRODUCTION'):
+            # Use gunicorn in production
+            import gunicorn.app.base
+            
+            class StandaloneApplication(gunicorn.app.base.BaseApplication):
+                def __init__(self, app, options=None):
+                    self.options = options or {}
+                    self.application = app
+                    super().__init__()
+
+                def load_config(self):
+                    for key, value in self.options.items():
+                        self.cfg.set(key.lower(), value)
+
+                def load(self):
+                    return self.application
+            
+            options = {
+                'bind': f'0.0.0.0:{port}',
+                'workers': 4,
+                'worker_class': 'sync',
+                'timeout': 120,
+                'keepalive': 5,
+                'max_requests': 1000,
+                'max_requests_jitter': 50,
+                'preload_app': True,
+                'worker_connections': 1000
+            }
+            StandaloneApplication(app, options).run()
+        else:
+            # Use Flask's development server
+            app.run(
+                host='0.0.0.0',
+                port=port,
+                debug=False,
+                use_reloader=False,
+                threaded=True
+            )
     except Exception as e:
         logger.error(f"Failed to start server: {str(e)}")
         sys.exit(1)
