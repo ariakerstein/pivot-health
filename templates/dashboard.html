@@ -97,6 +97,7 @@
 
 <div class="recommendations mb-5">
     <h2>Your Pivot Copilot recommends</h2>
+    <p class="text-muted mb-4">Personalized health recommendations based on your profile and recent activities</p>
     <div class="row g-4">
         <!-- Annual Check-up Card -->
         <div class="col-md-6">
@@ -109,6 +110,12 @@
                         <h5 class="card-title mb-0 ms-3">Schedule Annual Check-up</h5>
                     </div>
                     <p class="card-text">Based on your age and health profile, it's time for your annual physical examination.</p>
+                    <div class="confidence-meter mb-3">
+                        <div class="meter-bar">
+                            <div class="meter-fill" style="width: 95%"></div>
+                        </div>
+                        <span class="meter-label">Recommendation Confidence: 95%</span>
+                    </div>
                     <button class="btn btn-outline-primary">Schedule Now</button>
                 </div>
             </div>
@@ -125,6 +132,12 @@
                         <h5 class="card-title mb-0 ms-3">Spotlight on Home Monitoring Devices</h5>
                     </div>
                     <p class="card-text">Explore the latest in home health monitoring technology to track your vital signs.</p>
+                    <div class="confidence-meter mb-3">
+                        <div class="meter-bar">
+                            <div class="meter-fill" style="width: 85%"></div>
+                        </div>
+                        <span class="meter-label">Recommendation Confidence: 85%</span>
+                    </div>
                     <button class="btn btn-outline-primary">View Devices</button>
                 </div>
             </div>
@@ -141,6 +154,12 @@
                         <h5 class="card-title mb-0 ms-3">Mental Health Assessment</h5>
                     </div>
                     <p class="card-text">Schedule a comprehensive mental health evaluation with our healthcare professionals.</p>
+                    <div class="confidence-meter mb-3">
+                        <div class="meter-bar">
+                            <div class="meter-fill" style="width: 90%"></div>
+                        </div>
+                        <span class="meter-label">Recommendation Confidence: 90%</span>
+                    </div>
                     <a href="{{ url_for('health_screening') }}?type=mental" class="btn btn-outline-primary">Schedule Now</a>
                 </div>
             </div>
@@ -157,6 +176,12 @@
                         <h5 class="card-title mb-0 ms-3">Dermatology Consultation</h5>
                     </div>
                     <p class="card-text">Book an in-person consultation with our certified dermatologists for professional skin care.</p>
+                    <div class="confidence-meter mb-3">
+                        <div class="meter-bar">
+                            <div class="meter-fill" style="width: 88%"></div>
+                        </div>
+                        <span class="meter-label">Recommendation Confidence: 88%</span>
+                    </div>
                     <a href="{{ url_for('health_screening') }}?type=dermatology" class="btn btn-outline-primary">Schedule Now</a>
                 </div>
             </div>
@@ -282,47 +307,7 @@
     </div>
 </div>
 
-<div class="health-content mb-5">
-    <h2>Personalized Health Recommendations</h2>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card bg-gradient">
-                <div class="card-body">
-                    <h5 class="card-title">Recommended Articles</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Understanding Your Blood Pressure Results</a></li>
-                        <li><a href="#">The Importance of Regular Check-ups</a></li>
-                        <li><a href="#">Nutrition Tips for a Healthy Heart</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-gradient">
-                <div class="card-body">
-                    <h5 class="card-title">New Diagnostics for You</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Comprehensive Health Screening</a></li>
-                        <li><a href="#">Dermatology Consultation</a></li>
-                        <li><a href="#">Cardiovascular Health Assessment</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-gradient">
-                <div class="card-body">
-                    <h5 class="card-title">Find a Provider</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Primary Care Physicians</a></li>
-                        <li><a href="#">Specialists in Your Area</a></li>
-                        <li><a href="#">Telemedicine Options</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="marketplace mb-5">
     <h2>Health Marketplace</h2>
@@ -401,7 +386,10 @@
 
 <!-- Diagnostic Services -->
 <div class="diagnostic-services mb-5">
-    <h2>Diagnostic Services</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Diagnostic Services</h2>
+        <span class="text-muted powered-by">Powered by Protean</span>
+    </div>
     <div class="row g-4">
         <div class="col-md-6 col-lg-3">
             <div class="card service-card green">
