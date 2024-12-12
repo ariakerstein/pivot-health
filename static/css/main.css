@@ -324,18 +324,18 @@ body {
 }
 
 .recommendations .card:hover .icon-circle {
-    background-color: var(--primary-black);
+    background-color: var(--accent-blue);
 }
 
 .recommendations .icon-circle i {
-    color: var(--primary-black);
+    color: var(--primary-blue);
     width: 24px;
     height: 24px;
     transition: all 0.2s ease;
 }
 
 .recommendations .card:hover .icon-circle i {
-    color: var(--white);
+    color: var(--primary-blue);
 }
 
 .recommendations .card-title {
@@ -521,7 +521,7 @@ body {
     box-shadow: 0 4px 6px var(--shadow-color);
     height: 100%;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 102, 204, 0.1);
+    border: 1px solid rgba(30, 58, 138, 0.1);
     margin-bottom: 2rem;
 }
 
@@ -538,7 +538,7 @@ body {
 .feature-card .icon-circle {
     width: 64px;
     height: 64px;
-    background: var(--light-blue);
+    background: var(--light-warm);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -548,7 +548,7 @@ body {
 }
 
 .feature-card:hover .icon-circle {
-    background-color: var(--primary-blue);
+    background-color: var(--accent-blue);
     transform: scale(1.1);
 }
 
@@ -560,11 +560,11 @@ body {
 }
 
 .feature-card:hover .icon-circle i {
-    color: var(--white);
+    color: var(--primary-blue);
 }
 
 .text-trust-gray {
-    color: var(--trust-gray);
+    color: var(--warm-gray);
     line-height: 1.6;
 }
 
