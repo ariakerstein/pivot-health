@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -195,17 +196,7 @@ def init_db():
         raise
 
 def configure_prod_settings(app):
-    # Configure allowed hosts
-    app.config['SERVER_NAME'] = None  # Allow any host in development
-    
-    @app.before_request
-    def before_request():
-        # Handle www subdomain redirect
-        if request.host.startswith('www.'):
-            url = request.url.replace('www.', '', 1)
-            return redirect(url, code=301)
-
-    # Security headers without forcing HTTPS
+    # Basic security headers without SSL enforcement
     @app.after_request
     def add_security_headers(response):
         response.headers['X-Content-Type-Options'] = 'nosniff'
@@ -213,6 +204,15 @@ def configure_prod_settings(app):
         response.headers['X-XSS-Protection'] = '1; mode=block'
         response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
         return response
+
+    # Trust proxy headers from Replit
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app,
+        x_for=1,
+        x_proto=1,
+        x_host=1,
+        x_prefix=1
+    )
 
 if __name__ != '__main__':
     # Initialize database when imported as a module
