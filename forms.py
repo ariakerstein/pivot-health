@@ -42,3 +42,7 @@ class ScreeningAppointmentForm(FlaskForm):
     )
     notes = TextAreaField('Additional Notes', validators=[Optional()])
     submit = SubmitField('Schedule Screening')
+
+class WaitlistForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Join Waitlist')

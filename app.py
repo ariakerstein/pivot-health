@@ -35,13 +35,31 @@ def load_user(id):
         return None
 
 from models import User, MedicalRecord, HealthProfile
-from forms import LoginForm, RegistrationForm, HealthProfileForm, ScreeningAppointmentForm
+from forms import LoginForm, RegistrationForm, HealthProfileForm, ScreeningAppointmentForm, WaitlistForm
 
 @app.route('/')
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-    return render_template('index.html')
+    waitlist_form = WaitlistForm()
+    return render_template('index.html', waitlist_form=waitlist_form)
+
+@app.route('/join-waitlist', methods=['POST'])
+def join_waitlist():
+    form = WaitlistForm()
+    if form.validate_on_submit():
+        try:
+            waitlist_entry = Waitlist(email=form.email.data)
+            db.session.add(waitlist_entry)
+            db.session.commit()
+            flash('Thank you for joining our waitlist! We\'ll notify you when we launch.', 'success')
+        except Exception as e:
+            if 'unique constraint' in str(e).lower():
+                flash('This email is already on our waitlist.', 'info')
+            else:
+                flash('An error occurred. Please try again.', 'error')
+            db.session.rollback()
+    return redirect(url_for('index'))
 
 @app.route('/dashboard')
 @login_required

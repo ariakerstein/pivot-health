@@ -45,3 +45,9 @@ class HealthScreening(db.Model):
     status = db.Column(db.String(20), default='scheduled')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user = db.relationship('User', backref=db.backref('screenings', lazy=True))
+
+class Waitlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    joined_at = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(20), default='pending')  # pending, invited, joined
