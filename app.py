@@ -182,6 +182,26 @@ def init_db():
         app.logger.error(f"Error initializing database: {str(e)}")
         raise
 
+def configure_prod_settings(app):
+    @app.before_request
+    def before_request():
+        if not request.is_secure and not app.debug:
+            url = request.url.replace('http://', 'https://', 1)
+            return redirect(url, code=301)
+
+    # Security headers
+    @app.after_request
+    def add_security_headers(response):
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['X-XSS-Protection'] = '1; mode=block'
+        return response
+
 if __name__ != '__main__':
     # Initialize database when imported as a module
     init_db()
+    
+    # Configure production settings if in production
+    if os.environ.get('PRODUCTION') == 'true':
+        configure_prod_settings(app)
