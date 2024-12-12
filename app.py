@@ -196,7 +196,7 @@ def init_db():
         raise
 
 def configure_prod_settings(app):
-    # Basic security headers without SSL enforcement
+    # Basic security headers
     @app.after_request
     def add_security_headers(response):
         response.headers['X-Content-Type-Options'] = 'nosniff'
@@ -205,14 +205,8 @@ def configure_prod_settings(app):
         response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
         return response
 
-    # Trust proxy headers from Replit
-    app.wsgi_app = ProxyFix(
-        app.wsgi_app,
-        x_for=1,
-        x_proto=1,
-        x_host=1,
-        x_prefix=1
-    )
+    # Configure basic proxy settings
+    app.wsgi_app = ProxyFix(app.wsgi_app)
 
 if __name__ != '__main__':
     # Initialize database when imported as a module
