@@ -196,8 +196,16 @@ def init_db():
         raise
 
 def configure_prod_settings(app):
-    # We let Replit handle all HTTPS/SSL aspects
-    pass
+    """Configure production settings"""
+    # Basic security headers that don't interfere with Replit's SSL
+    @app.after_request
+    def add_security_headers(response):
+        response.headers.update({
+            'X-Content-Type-Options': 'nosniff',
+            'X-Frame-Options': 'SAMEORIGIN',
+            'Referrer-Policy': 'same-origin'
+        })
+        return response
 
 if __name__ != '__main__':
     # Initialize database when imported as a module
