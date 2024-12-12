@@ -196,7 +196,7 @@ def init_db():
 
 def configure_prod_settings(app):
     # Configure allowed hosts
-    app.config['SERVER_NAME'] = 'pivothealth.ai'
+    app.config['SERVER_NAME'] = None  # Allow any host in development
     
     @app.before_request
     def before_request():
@@ -204,16 +204,10 @@ def configure_prod_settings(app):
         if request.host.startswith('www.'):
             url = request.url.replace('www.', '', 1)
             return redirect(url, code=301)
-            
-        # Force HTTPS
-        if not request.is_secure and not app.debug:
-            url = request.url.replace('http://', 'https://', 1)
-            return redirect(url, code=301)
 
-    # Security headers
+    # Security headers without forcing HTTPS
     @app.after_request
     def add_security_headers(response):
-        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
         response.headers['X-Content-Type-Options'] = 'nosniff'
         response.headers['X-Frame-Options'] = 'SAMEORIGIN'
         response.headers['X-XSS-Protection'] = '1; mode=block'
