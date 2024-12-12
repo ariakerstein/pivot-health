@@ -5,10 +5,6 @@
     <div class="text-center py-5">
         <h1 class="display-4 mb-4">Pivot Health: Your Medical Co-pilot</h1>
         <p class="lead mb-4">Discover and manage high-quality health services with personalized recommendations.</p>
-        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-5">
-            <a href="{{ url_for('signup') }}" class="btn btn-success btn-lg px-4 gap-3">Start Onboarding</a>
-            <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg px-4">Sign In</a>
-        </div>
     </div>
 
     <div class="row g-4 py-5 justify-content-center">
@@ -18,12 +14,8 @@
                 <div class="icon-circle mb-4">
                     <i data-feather="upload-cloud"></i>
                 </div>
-                <h3 class="h4 mb-3">Seamless Onboarding</h3>
-                <p class="text-trust-gray mb-4">Securely upload and manage your medical records in one centralized vault. We handle the complexity, you maintain control.</p>
-                <div class="feature-highlights">
-                    <span class="highlight-tag">Smart Import</span>
-                    <span class="highlight-tag">Secure Vault</span>
-                </div>
+                <h3 class="h4 mb-3">Simple Onboarding</h3>
+                <p class="text-trust-gray mb-4">Securely upload and manage your medical records in one centralized vault. Smart import technology and secure storage ensure your data is protected while remaining easily accessible.</p>
             </div>
         </div>
 
@@ -34,11 +26,7 @@
                     <i data-feather="activity"></i>
                 </div>
                 <h3 class="h4 mb-3">Personalized Diagnostics</h3>
-                <p class="text-trust-gray mb-4">Get comprehensive health insights with our diagnostic workup system. Tailored to your unique health profile.</p>
-                <div class="feature-highlights">
-                    <span class="highlight-tag">Custom Analysis</span>
-                    <span class="highlight-tag">Expert Review</span>
-                </div>
+                <p class="text-trust-gray mb-4">Get comprehensive health insights with our custom analysis system. Expert-reviewed diagnostics tailored to your unique health profile and history.</p>
             </div>
         </div>
 
@@ -49,11 +37,7 @@
                     <i data-feather="compass"></i>
                 </div>
                 <h3 class="h4 mb-3">Smart Health Guide</h3>
-                <p class="text-trust-gray mb-4">Explore personalized insights with your medical agent and stay updated with the latest research in your health journey.</p>
-                <div class="feature-highlights">
-                    <span class="highlight-tag">AI Assistant</span>
-                    <span class="highlight-tag">Latest Research</span>
-                </div>
+                <p class="text-trust-gray mb-4">Your personal medical agent helps you navigate healthcare decisions with AI-powered assistance and curated research from trusted medical sources.</p>
             </div>
         </div>
     </div>
@@ -61,13 +45,13 @@
     <div class="waitlist-section text-center py-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="h3 mb-4">Join Our Exclusive Waitlist</h2>
+                <h2 class="h3 mb-4">Coming in Q1 2025. Join the waitlist.</h2>
                 <p class="text-muted mb-4">We're currently in stealth mode, building something special. Be among the first to experience Pivot Health when we launch.</p>
                 <form method="POST" action="{{ url_for('join_waitlist') }}" class="waitlist-form">
                     {{ waitlist_form.hidden_tag() }}
                     <div class="input-group mb-3">
                         {{ waitlist_form.email(class="form-control form-control-lg", placeholder="Enter your email") }}
-                        <button type="submit" class="btn btn-success btn-lg">Join Waitlist</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Join Waitlist</button>
                     </div>
                     <small class="text-muted">By joining, you'll get early access and exclusive updates about our launch.</small>
                 </form>
