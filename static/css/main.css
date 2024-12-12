@@ -218,17 +218,15 @@
     }
 }
 :root {
-    --primary-blue: #0066cc;
-    --secondary-blue: #3498db;
-    --accent-blue: #e8f4fc;
-    --trust-navy: #1a365d;
-    --trust-gray: #4a5568;
-    --accent-gray: #718096;
-    --light-blue: #ebf8ff;
+    --primary-blue: #1E3A8A;
+    --secondary-blue: #3B82F6;
+    --accent-blue: #DBEAFE;
+    --warm-gray: #64748B;
+    --light-warm: #F8FAFC;
     --white: #ffffff;
-    --shadow-color: rgba(0, 102, 204, 0.1);
+    --shadow-color: rgba(30, 58, 138, 0.1);
     --gradient-start: var(--white);
-    --gradient-end: var(--light-blue);
+    --gradient-end: var(--light-warm);
 }
 
 body {
