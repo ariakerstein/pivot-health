@@ -196,17 +196,35 @@ def init_db():
         raise
 
 def configure_prod_settings(app):
-    # Basic security headers
+    # Configure for Replit's HTTPS
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['REMEMBER_COOKIE_SECURE'] = True
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    
+    @app.before_request
+    def redirect_to_https():
+        if not request.is_secure and not app.debug:
+            url = request.url.replace('http://', 'https://', 1)
+            return redirect(url, code=301)
+
     @app.after_request
     def add_security_headers(response):
-        response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-        response.headers['X-XSS-Protection'] = '1; mode=block'
-        response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+        if not app.debug:
+            response.headers.update({
+                'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+                'X-Content-Type-Options': 'nosniff',
+                'X-Frame-Options': 'SAMEORIGIN',
+                'X-XSS-Protection': '1; mode=block',
+                'Referrer-Policy': 'strict-origin-when-cross-origin'
+            })
         return response
 
-    # Configure basic proxy settings
-    app.wsgi_app = ProxyFix(app.wsgi_app)
+    # Configure proxy settings for Replit's environment
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app,
+        x_proto=1,
+        x_host=1
+    )
 
 if __name__ != '__main__':
     # Initialize database when imported as a module
