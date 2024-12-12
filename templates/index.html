@@ -5,9 +5,66 @@
     <div class="text-center py-5">
         <h1 class="display-4 mb-4">Pivot Health: Your Medical Co-pilot</h1>
         <p class="lead mb-4">Discover and manage high-quality health services with personalized recommendations.</p>
-        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-5">
             <a href="{{ url_for('signup') }}" class="btn btn-success btn-lg px-4 gap-3">Start Onboarding</a>
             <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg px-4">Sign In</a>
+        </div>
+    </div>
+
+    <div class="row g-4 py-5">
+        <!-- Upload Records -->
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-card text-center">
+                <div class="icon-circle mb-4">
+                    <i data-feather="cloud"></i>
+                </div>
+                <h3 class="h5">Upload your records</h3>
+                <ul class="feature-list text-start">
+                    <li>Intake</li>
+                    <li>Records ingestion</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Learn & Engage -->
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-card text-center">
+                <div class="icon-circle mb-4">
+                    <i data-feather="star"></i>
+                </div>
+                <h3 class="h5">Learn & engage</h3>
+                <ul class="feature-list text-start">
+                    <li>Conversational AI</li>
+                    <li>Relevant articles</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Diagnostic -->
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-card text-center">
+                <div class="icon-circle mb-4">
+                    <i data-feather="flask"></i>
+                </div>
+                <h3 class="h5">Diagnostic recommendations</h3>
+                <p class="text-muted small">Powered by Protean</p>
+            </div>
+        </div>
+
+        <!-- Personalized Marketplace -->
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-card text-center">
+                <div class="icon-circle mb-4">
+                    <i data-feather="dollar-sign"></i>
+                </div>
+                <h3 class="h5">Personalized Marketplace</h3>
+                <ul class="feature-list text-start">
+                    <li>Marketplace to connect with relevant solutions</li>
+                    <li>2nd Opinions / Provider matching</li>
+                    <li>Medical equipment</li>
+                    <li>Ongoing Labs/tests for monitoring</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
