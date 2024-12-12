@@ -34,7 +34,7 @@ def load_user(id):
         app.logger.error(f"Error loading user: {str(e)}")
         return None
 
-from models import User, MedicalRecord, HealthProfile
+from models import User, MedicalRecord, HealthProfile, Waitlist
 from forms import LoginForm, RegistrationForm, HealthProfileForm, ScreeningAppointmentForm, WaitlistForm
 
 @app.route('/')
@@ -58,8 +58,20 @@ def join_waitlist():
                 flash('This email is already on our waitlist.', 'info')
             else:
                 flash('An error occurred. Please try again.', 'error')
+                app.logger.error(f'Error adding to waitlist: {str(e)}')
             db.session.rollback()
     return redirect(url_for('index'))
+
+@app.route('/admin/waitlist')
+@login_required
+def admin_waitlist():
+    """Admin view to see all waitlist entries"""
+    # Only allow admin users
+    if not current_user.is_authenticated or current_user.email != 'admin@pivothealth.ai':
+        return redirect(url_for('index'))
+    
+    waitlist_entries = Waitlist.query.order_by(Waitlist.joined_at.desc()).all()
+    return render_template('admin/waitlist.html', entries=waitlist_entries)
 
 @app.route('/dashboard')
 @login_required
