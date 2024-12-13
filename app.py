@@ -10,6 +10,22 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
+# Configure comprehensive proxy settings for Replit's SSL
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_for=1,
+    x_proto=1,
+    x_host=1,
+    x_prefix=1,
+    x_port=1
+)
+
+# Force HTTPS
+app.config['PREFERRED_URL_SCHEME'] = 'https'
+if not app.debug:
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['REMEMBER_COOKIE_SECURE'] = True
+
 # Configure SQLAlchemy for Replit deployment
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
@@ -196,14 +212,29 @@ def init_db():
         raise
 
 def configure_prod_settings(app):
-    """Configure production settings"""
-    # Basic security headers that don't interfere with Replit's SSL
+    """Configure production settings with enhanced SSL handling"""
+    @app.before_request
+    def before_request():
+        # Check if we're already on HTTPS
+        if not request.is_secure and not app.debug:
+            # Handle Replit's proxy setup
+            if 'X-Forwarded-Proto' in request.headers:
+                if request.headers['X-Forwarded-Proto'] == 'https':
+                    return None
+            # Redirect to HTTPS
+            url = request.url.replace('http://', 'https://', 1)
+            return redirect(url, code=301)
+
     @app.after_request
     def add_security_headers(response):
+        # Enhanced security headers for SSL
         response.headers.update({
+            'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
             'X-Content-Type-Options': 'nosniff',
             'X-Frame-Options': 'SAMEORIGIN',
-            'Referrer-Policy': 'same-origin'
+            'Referrer-Policy': 'strict-origin-when-cross-origin',
+            'X-XSS-Protection': '1; mode=block',
+            'Content-Security-Policy': "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';"
         })
         return response
 

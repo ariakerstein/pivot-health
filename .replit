@@ -65,7 +65,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "gunicorn --workers 4 --bind 0.0.0.0:8080 wsgi:app"
+args = "PRODUCTION=true gunicorn --workers 4 --bind 0.0.0.0:8080 --proxy-protocol --forwarded-allow-ips='*' wsgi:app"
 waitForPort = 8080
 
 [deployment]
