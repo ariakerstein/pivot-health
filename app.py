@@ -6,12 +6,31 @@ from flask_migrate import Migrate
 from datetime import datetime
 from health_screening import schedule_health_screening, get_available_slots
 import os
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
+# Configure for Replit's proxy setup
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_for=1,
+    x_proto=1,
+    x_host=1,
+    x_prefix=1
+)
+
+#app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
+# Force HTTPS (This might be redundant with Replit's HTTPS proxy)
+#def force_https():
+#    if request.headers.get('X-Forwarded-Proto', 'http') == 'http':
+#        url = request.url.replace('http://', 'https://', 1)
+#        return redirect(url, code=301)
+
+#app.before_request(force_https)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 # Simple configuration for Replit
-port = int(os.environ.get('PORT', 5000))
+port = int(os.environ.get('PORT', 8080)) # Changed port to 8080
 
 # Configure SQLAlchemy for Replit deployment
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
