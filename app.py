@@ -9,21 +9,8 @@ import os
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
-# Configure for Replit's proxy setup
-app.wsgi_app = ProxyFix(
-    app.wsgi_app, 
-    x_proto=1,     # Handle X-Forwarded-Proto
-    x_host=1,      # Handle X-Forwarded-Host
-    x_prefix=1,    # Handle X-Forwarded-Prefix
-    x_for=1        # Handle X-Forwarded-For
-)
-
-# Ensure HTTPS
-@app.before_request
-def force_https():
-    if not request.is_secure and request.headers.get('X-Forwarded-Proto', 'http') == 'http':
-        url = request.url.replace('http://', 'https://', 1)
-        return redirect(url, code=301)
+# Simple proxy configuration for Replit
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 # Simple configuration for Replit
