@@ -9,14 +9,27 @@ import os
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
-# Simple proxy configuration for Replit
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
-app.config['SECRET_KEY'] = os.urandom(24)
+# Enhanced proxy configuration for HTTPS and domain handling
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_proto=1,
+    x_host=1,
+    x_prefix=1,
+    x_port=1
+)
 
-# Simple configuration for Replit
-port = int(os.environ.get('PORT', 8080)) # Changed port to 8080
+# Security settings
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(24))
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['REMEMBER_COOKIE_SECURE'] = True
+app.config['PREFERRED_URL_SCHEME'] = 'https'
 
-# Configure SQLAlchemy for Replit deployment
+# Domain configuration
+if os.environ.get('PRODUCTION') == 'true':
+    app.config['SERVER_NAME'] = 'pivothealth.ai'
+
+
+# Configure SQLAlchemy (maintained original configuration)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     'pool_size': 3,
@@ -217,3 +230,7 @@ if __name__ != '__main__':
     # Configure production settings if in production
     if os.environ.get('PRODUCTION') == 'true':
         configure_prod_settings(app)
+
+port = int(os.environ.get('PORT', 8080))
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0', port=port)
