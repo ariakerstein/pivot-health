@@ -23,6 +23,10 @@ args = "Flask Production Server"
 task = "workflow.run"
 args = "Production Server"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Tailwind CSS"
+
 [[workflows.workflow]]
 name = "Flask Server"
 author = "agent"
@@ -67,6 +71,20 @@ task = "packager.installForAll"
 task = "shell.exec"
 args = "PORT=8080 PRODUCTION=true python main.py"
 waitForPort = 8080
+
+[[workflows.workflow]]
+name = "Tailwind CSS"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx tailwindcss -i ./static/css/src/main.css -o ./static/css/main.css --watch"
 
 [deployment]
 run = ["sh", "-c", "PORT=8080 PRODUCTION=true python main.py"]
