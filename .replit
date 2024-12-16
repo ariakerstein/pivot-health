@@ -27,6 +27,10 @@ args = "Production Server"
 task = "workflow.run"
 args = "Tailwind CSS"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Flask Development Server"
+
 [[workflows.workflow]]
 name = "Flask Server"
 author = "agent"
@@ -85,6 +89,21 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npx tailwindcss -i ./static/css/src/main.css -o ./static/css/main.css --watch"
+
+[[workflows.workflow]]
+name = "Flask Development Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python app.py"
+waitForPort = 8080
 
 [deployment]
 run = ["sh", "-c", "gunicorn app:app --workers 4 --bind 0.0.0.0:8080 --access-logfile - --error-logfile -"]

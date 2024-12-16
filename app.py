@@ -1,12 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
-from health_screening import schedule_health_screening, get_available_slots
 import os
-from werkzeug.middleware.proxy_fix import ProxyFix
+from health_screening import schedule_health_screening, get_available_slots
+from database import db, init_db
 
 app = Flask(__name__)
 # Add SVG MIME type
@@ -71,7 +70,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
 }
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+init_db(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
