@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle -->
+  <circle cx="20" cy="20" r="19" stroke="#1d4ed8" stroke-width="2" fill="none"/>
+  <!-- Cross symbol -->
+  <path d="M20 10 L20 30 M10 20 L30 20" stroke="#1d4ed8" stroke-width="3" stroke-linecap="round"/>
+  <!-- Arc representing movement/progress -->
+  <path d="M35 20 A15 15 0 0 1 20 35" stroke="#3b82f6" stroke-width="2" fill="none"/>
+</svg>
