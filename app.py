@@ -24,9 +24,37 @@ app.config['SESSION_COOKIE_SECURE'] = True
 app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 
-# Domain configuration
+# Production configuration
 if os.environ.get('PRODUCTION') == 'true':
-    app.config['SERVER_NAME'] = 'pivothealth.ai'
+    # Domain settings for pivothealth.ai
+    app.config.update(
+        SERVER_NAME='pivothealth.ai',
+        PREFERRED_URL_SCHEME='https',
+        SESSION_COOKIE_DOMAIN='.pivothealth.ai',
+        SESSION_COOKIE_SECURE=True,
+        REMEMBER_COOKIE_SECURE=True,
+        SESSION_COOKIE_HTTPONLY=True,
+        PERMANENT_SESSION_LIFETIME=86400,  # 24 hours
+        SESSION_COOKIE_SAMESITE='Lax'
+    )
+    
+    # Enhanced security headers for production
+    @app.after_request
+    def add_security_headers(response):
+        headers = {
+            'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+            'X-Content-Type-Options': 'nosniff',
+            'X-Frame-Options': 'SAMEORIGIN',
+            'X-XSS-Protection': '1; mode=block',
+            'Content-Security-Policy': "default-src 'self' https://*.pivothealth.ai; "
+                                     "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; "
+                                     "style-src 'self' 'unsafe-inline'; "
+                                     "img-src 'self' data:; "
+                                     "font-src 'self' data:;"
+        }
+        for key, value in headers.items():
+            response.headers[key] = value
+        return response
 
 
 # Configure SQLAlchemy (maintained original configuration)
@@ -229,13 +257,21 @@ if __name__ != '__main__':
     
     # Configure production settings if in production
     if os.environ.get('PRODUCTION') == 'true':
-        app.config['SERVER_NAME'] = None  # Let gunicorn handle the server name
+        app.config['SERVER_NAME'] = 'pivothealth.ai'  # Set the domain name
         app.config['PREFERRED_URL_SCHEME'] = 'https'
         app.config['SESSION_COOKIE_SECURE'] = True
         app.config['REMEMBER_COOKIE_SECURE'] = True
+        app.config['SESSION_COOKIE_DOMAIN'] = '.pivothealth.ai'
+        app.config['SESSION_COOKIE_HTTPONLY'] = True
+        app.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours
+        
 
 # For both production and development
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    init_db()  # Initialize database in main process too
-    app.run(debug=False, host='0.0.0.0', port=port)
+    init_db()  # Initialize database in main process
+    if os.environ.get('PRODUCTION') == 'true':
+        # Let gunicorn handle the server
+        pass
+    else:
+        app.run(debug=False, host='0.0.0.0', port=port)
