@@ -14,7 +14,12 @@
                     {{ waitlist_form.hidden_tag() }}
                     <div class="flex flex-col sm:flex-row gap-4">
                         {{ waitlist_form.email(class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white", placeholder="Enter your email to join the waitlist") }}
-                        <button type="submit" class="w-full sm:w-auto text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Get Early Access</button>
+                        <button type="submit" class="w-full sm:w-auto text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center">
+                            Get Early Access
+                            <svg class="w-5 h-5 ml-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4v4m0 4v4m-4-4h8m-4 8a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
                     </div>
                     <p class="text-sm text-gray-500 dark:text-gray-400">Join 2,000+ healthcare pioneers. Launch in Q1 2025.</p>
                 </form>
