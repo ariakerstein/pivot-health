@@ -28,7 +28,7 @@ app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 # Production configuration
 if os.environ.get('PRODUCTION') == 'true':
-    # Domain settings for pivothealth.ai
+    # Domain settings for pivothealth.ai with enhanced SSL configuration
     app.config.update(
         SERVER_NAME='pivothealth.ai',
         PREFERRED_URL_SCHEME='https',
@@ -37,8 +37,24 @@ if os.environ.get('PRODUCTION') == 'true':
         REMEMBER_COOKIE_SECURE=True,
         SESSION_COOKIE_HTTPONLY=True,
         PERMANENT_SESSION_LIFETIME=86400,  # 24 hours
-        SESSION_COOKIE_SAMESITE='Lax'
+        SESSION_COOKIE_SAMESITE='Strict',
+        CORS_HEADERS='Content-Type'
     )
+    
+    # SSL certificate configuration
+    ssl_cert = os.environ.get('SSL_CERT_PATH')
+    ssl_key = os.environ.get('SSL_KEY_PATH')
+    if ssl_cert and ssl_key:
+        if os.path.exists(ssl_cert) and os.path.exists(ssl_key):
+            app.config.update(
+                SSL_CERTIFICATE=ssl_cert,
+                SSL_PRIVATE_KEY=ssl_key
+            )
+            # Enable HTTPS-only cookies
+            app.config['SESSION_COOKIE_SECURE'] = True
+            app.config['REMEMBER_COOKIE_SECURE'] = True
+        else:
+            app.logger.error(f"SSL certificate files not found at {ssl_cert} or {ssl_key}")
     
     # Enhanced security headers for production
     @app.after_request
@@ -259,11 +275,11 @@ if __name__ != '__main__':
     
     # Configure production settings if in production
     if os.environ.get('PRODUCTION') == 'true':
-        app.config['SERVER_NAME'] = 'pivothealth.ai'  # Set the domain name
+        # Allow both Replit domain and custom domain during SSL setup
+        app.config['SERVER_NAME'] = None  # Allow all hostnames during setup
         app.config['PREFERRED_URL_SCHEME'] = 'https'
         app.config['SESSION_COOKIE_SECURE'] = True
         app.config['REMEMBER_COOKIE_SECURE'] = True
-        app.config['SESSION_COOKIE_DOMAIN'] = '.pivothealth.ai'
         app.config['SESSION_COOKIE_HTTPONLY'] = True
         app.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours
         

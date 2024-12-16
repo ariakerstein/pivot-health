@@ -74,6 +74,17 @@ def start_server():
                 'preload_app': True,
                 'worker_connections': 1000
             }
+            
+            # Add SSL configuration if certificates are available
+            ssl_cert = os.environ.get('SSL_CERT_PATH')
+            ssl_key = os.environ.get('SSL_KEY_PATH')
+            if ssl_cert and ssl_key and os.path.exists(ssl_cert) and os.path.exists(ssl_key):
+                options.update({
+                    'certfile': ssl_cert,
+                    'keyfile': ssl_key,
+                    'ssl_version': 'TLS',
+                    'ciphers': 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'
+                })
             StandaloneApplication(app, options).run()
         else:
             # Use Flask's development server
