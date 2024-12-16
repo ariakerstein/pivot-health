@@ -9,6 +9,9 @@ import os
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
+# Add SVG MIME type
+app.config['MIME_TYPES'] = {'svg': 'image/svg+xml'}
+
 # Enhanced proxy configuration for HTTPS and domain handling
 app.wsgi_app = ProxyFix(
     app.wsgi_app,
