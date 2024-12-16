@@ -1,0 +1,6 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Protean BioDx simplified logo -->
+  <rect width="200" height="50" fill="none"/>
+  <path d="M20,25 L35,15 L50,25 L35,35 Z" fill="none" stroke="#718096" stroke-width="2"/>
+  <text x="60" y="32" font-family="Arial" font-size="16" fill="#718096">Protean BioDx</text>
+</svg>

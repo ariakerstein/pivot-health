@@ -34,13 +34,15 @@
             <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Join the healthcare revolution with institutions that trust Pivot Health</p>
         </div>
         <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
-            <a href="#" class="flex justify-center items-center">
-                <svg class="h-9 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 125 35" fill="currentColor">
-                    <path d="M12.5 2.5h10v10h-10z"></path>
-                    <text x="30" y="20" class="text-sm">Hospital A</text>
-                </svg>
+            <a href="https://cancercommons.org" class="flex justify-center items-center" target="_blank" rel="noopener">
+                <img src="{{ url_for('static', filename='images/partner-logos/cancer-commons.svg') }}" alt="Cancer Commons Logo" class="h-12 grayscale hover:grayscale-0 transition-all">
             </a>
-            <!-- Add more partner logos as needed -->
+            <a href="https://www.proteanbiodx.com" class="flex justify-center items-center" target="_blank" rel="noopener">
+                <img src="{{ url_for('static', filename='images/partner-logos/protean-biodx.svg') }}" alt="Protean BioDx Logo" class="h-12 grayscale hover:grayscale-0 transition-all">
+            </a>
+            <a href="https://wearehere.com" class="flex justify-center items-center" target="_blank" rel="noopener">
+                <img src="{{ url_for('static', filename='images/partner-logos/we-are-here.svg') }}" alt="WeAreHere Logo" class="h-12 grayscale hover:grayscale-0 transition-all">
+            </a>
         </div>
     </div>
 </section>

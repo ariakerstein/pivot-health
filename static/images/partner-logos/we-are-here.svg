@@ -1,0 +1,6 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- WeAreHere simplified logo -->
+  <rect width="200" height="50" fill="none"/>
+  <circle cx="35" cy="25" r="15" fill="none" stroke="#718096" stroke-width="2"/>
+  <text x="60" y="32" font-family="Arial" font-size="16" fill="#718096">WeAreHere</text>
+</svg>
