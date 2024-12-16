@@ -69,7 +69,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "PORT=8080 PRODUCTION=true python main.py"
+args = "gunicorn app:app --workers 4 --bind 0.0.0.0:8080 --access-logfile - --error-logfile -"
 waitForPort = 8080
 
 [[workflows.workflow]]
@@ -87,7 +87,7 @@ task = "shell.exec"
 args = "npx tailwindcss -i ./static/css/src/main.css -o ./static/css/main.css --watch"
 
 [deployment]
-run = ["sh", "-c", "PORT=8080 PRODUCTION=true python main.py"]
+run = ["sh", "-c", "gunicorn app:app --workers 4 --bind 0.0.0.0:8080 --access-logfile - --error-logfile -"]
 
 [[ports]]
 localPort = 80

@@ -229,8 +229,13 @@ if __name__ != '__main__':
     
     # Configure production settings if in production
     if os.environ.get('PRODUCTION') == 'true':
-        configure_prod_settings(app)
+        app.config['SERVER_NAME'] = None  # Let gunicorn handle the server name
+        app.config['PREFERRED_URL_SCHEME'] = 'https'
+        app.config['SESSION_COOKIE_SECURE'] = True
+        app.config['REMEMBER_COOKIE_SECURE'] = True
 
+# For both production and development
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
+    init_db()  # Initialize database in main process too
     app.run(debug=False, host='0.0.0.0', port=port)
