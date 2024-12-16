@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white dark:bg-gray-900">
+    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
+        <div class="max-w-screen-md mx-auto text-center mb-8 lg:mb-12">
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Symptom Checker</h1>
+            <p class="mb-8 font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Answer a few questions about how you're feeling to get instant health guidance.</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
+            <div id="symptomTree" class="flex flex-col space-y-4">
+                <!-- Current Question -->
+                <div class="question-container">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white" id="currentQuestion">
+                        What's your main symptom?
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="optionsContainer">
+                        <!-- Options will be dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Visual Path -->
+                <div class="mt-8">
+                    <div class="flex items-center justify-center space-x-2" id="pathVisualizer">
+                        <!-- Path visualization will be updated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="mt-6">
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" id="progressBar" style="width: 0%"></div>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center" id="progressText">Progress: 0%</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Decision Tree JavaScript -->
+<script>
+const decisionTree = {
+    initialQuestion: {
+        text: "What's your main symptom?",
+        options: [
+            {
+                text: "Headache",
+                next: "headache_severity"
+            },
+            {
+                text: "Fever",
+                next: "fever_duration"
+            },
+            {
+                text: "Cough",
+                next: "cough_type"
+            },
+            {
+                text: "Stomach Pain",
+                next: "stomach_location"
+            }
+        ]
+    },
+    headache_severity: {
+        text: "How severe is your headache?",
+        options: [
+            {
+                text: "Mild",
+                result: "Consider rest and over-the-counter pain relievers. Monitor for worsening symptoms."
+            },
+            {
+                text: "Moderate",
+                next: "headache_duration"
+            },
+            {
+                text: "Severe",
+                result: "Please seek immediate medical attention, especially if this is the worst headache of your life."
+            }
+        ]
+    },
+    // More nodes will be added
+};
+
+let currentNode = 'initialQuestion';
+let pathHistory = [];
+
+function updateQuestion(nodeKey) {
+    const node = decisionTree[nodeKey];
+    const container = document.getElementById('optionsContainer');
+    const questionEl = document.getElementById('currentQuestion');
+    
+    // Update question
+    questionEl.textContent = node.text;
+    
+    // Clear previous options
+    container.innerHTML = '';
+    
+    // Add new options
+    node.options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700';
+        button.textContent = option.text;
+        button.onclick = () => handleSelection(option);
+        container.appendChild(button);
+    });
+
+    updateProgress();
+    updatePathVisualizer();
+}
+
+function handleSelection(option) {
+    pathHistory.push({
+        question: decisionTree[currentNode].text,
+        answer: option.text
+    });
+
+    if (option.result) {
+        showResult(option.result);
+    } else if (option.next) {
+        currentNode = option.next;
+        updateQuestion(currentNode);
+    }
+}
+
+function updateProgress() {
+    const progress = (pathHistory.length / 3) * 100; // Assuming average path length of 3
+    document.getElementById('progressBar').style.width = `${Math.min(progress, 100)}%`;
+    document.getElementById('progressText').textContent = `Progress: ${Math.min(Math.round(progress), 100)}%`;
+}
+
+function updatePathVisualizer() {
+    const visualizer = document.getElementById('pathVisualizer');
+    visualizer.innerHTML = '';
+    
+    pathHistory.forEach((step, index) => {
+        // Add step
+        const stepEl = document.createElement('div');
+        stepEl.className = 'flex flex-col items-center';
+        
+        const circle = document.createElement('div');
+        circle.className = 'w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm';
+        circle.textContent = index + 1;
+        
+        const label = document.createElement('div');
+        label.className = 'text-xs text-gray-500 mt-1';
+        label.textContent = step.answer;
+        
+        stepEl.appendChild(circle);
+        stepEl.appendChild(label);
+        visualizer.appendChild(stepEl);
+        
+        // Add connector if not last step
+        if (index < pathHistory.length - 1) {
+            const connector = document.createElement('div');
+            connector.className = 'w-8 h-1 bg-blue-600';
+            visualizer.appendChild(connector);
+        }
+    });
+}
+
+function showResult(result) {
+    const container = document.getElementById('symptomTree');
+    container.innerHTML = `
+        <div class="bg-blue-50 dark:bg-blue-900 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Assessment Result</h3>
+            <p class="text-gray-700 dark:text-gray-300">${result}</p>
+            <button onclick="resetChecker()" class="mt-6 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-lg focus:ring-4 focus:ring-blue-300">
+                Start Over
+            </button>
+        </div>
+    `;
+}
+
+function resetChecker() {
+    currentNode = 'initialQuestion';
+    pathHistory = [];
+    updateQuestion(currentNode);
+}
+
+// Initialize the checker
+document.addEventListener('DOMContentLoaded', () => {
+    updateQuestion(currentNode);
+});
+</script>
+{% endblock %}

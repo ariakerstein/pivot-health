@@ -121,6 +121,11 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/symptom-checker')
+@login_required
+def symptom_checker():
+    return render_template('symptom_checker.html')
+
 @app.route('/health/screening', methods=['GET', 'POST'])
 @login_required
 def health_screening():
