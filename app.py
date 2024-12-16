@@ -103,6 +103,32 @@ def load_user(id):
 from models import User, MedicalRecord, HealthProfile, Waitlist
 from forms import LoginForm, RegistrationForm, HealthProfileForm, ScreeningAppointmentForm, WaitlistForm
 
+@app.route('/.well-known/acme-challenge/<token>')
+def acme_challenge(token):
+    """Handle ACME challenge for SSL certificate validation"""
+    app.logger.info(f"ACME challenge requested for token: {token}")
+    
+    # Look for the challenge file in the static directory
+    challenge_dir = os.path.join(app.static_folder, '.well-known', 'acme-challenge')
+    challenge_path = os.path.join(challenge_dir, token)
+    
+    app.logger.info(f"Looking for challenge file at: {challenge_path}")
+    
+    if os.path.exists(challenge_path):
+        with open(challenge_path, 'r') as f:
+            content = f.read().strip()
+            app.logger.info(f"Serving challenge content: {content}")
+            return content, 200, {'Content-Type': 'text/plain'}
+    
+    # For debugging purposes, list all files in the challenge directory
+    if os.path.exists(challenge_dir):
+        files = os.listdir(challenge_dir)
+        app.logger.info(f"Files in challenge directory: {files}")
+    else:
+        app.logger.warning("Challenge directory does not exist")
+    
+    return 'Not found', 404
+
 @app.route('/')
 def index():
     if current_user.is_authenticated:
